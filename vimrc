@@ -1,7 +1,7 @@
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
-
+set number
 
 set tabstop=2
 set shiftwidth=2
