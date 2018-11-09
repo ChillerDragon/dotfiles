@@ -15,3 +15,6 @@ fi
 
 echo "updating vimrc"
 cp vimrc ~/.vimrc
+
+echo "bash_profile might need changes"
+echo "so it has to be done manually"
