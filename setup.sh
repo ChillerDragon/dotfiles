@@ -1,4 +1,5 @@
 #!/bin/bash
+echo "Starting chiller configs setup script"
 echo "This script replaces config files without backups."
 echo "Data might be lost!"
 echo "Do you really want to execute it? [y/N]"
