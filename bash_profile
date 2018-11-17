@@ -36,3 +36,8 @@ else
   # echo "This is a script"
   test
 fi
+
+# RBENV and setup needed for rails
+export PATH="${HOME}/.rbenv/bin:${PATH}"
+type -a rbenv > /dev/null && eval "$(rbenv init -)" # Load rbenv if installed
+export PATH="./bin:./node_modules/.bin:${PATH}:/usr/local/sbin" # some nice relative paths
