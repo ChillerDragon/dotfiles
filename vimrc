@@ -1,3 +1,4 @@
+" version 0001
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
