@@ -1,4 +1,13 @@
 #!/bin/bash
+function update_vim() {
+    echo "[vim] updating..."
+    cp vimrc ~/.vimrc
+}
+
+function update_bashprofile() {
+    echo "[bash_profile] has to be done manually."
+}
+
 echo "Starting chiller configs setup script"
 echo "This script replaces config files without backups."
 echo "Data might be lost!"
@@ -14,8 +23,6 @@ else
     exit
 fi
 
-echo "updating vimrc"
-cp vimrc ~/.vimrc
+update_vim
+update_bashprofile
 
-echo "bash_profile might need changes"
-echo "so it has to be done manually"
