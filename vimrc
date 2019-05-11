@@ -1,12 +1,12 @@
-" version 0002
+" version 0003
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
 set number
 
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
 set expandtab
 
 " chiller hax to repare delete key
