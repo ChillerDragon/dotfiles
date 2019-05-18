@@ -3,6 +3,7 @@ aVimVersions=();aVimSha1s=()
 aVimVersions+=("0001");aVimSha1s+=("f851be2ceb92cf34dac541237ee5e31485cefb63")
 aVimVersions+=("0002");aVimSha1s+=("5733e1b9ad5dd5c7509ed384290335207c44b812") 
 aVimVersions+=("0003");aVimSha1s+=("9ee9f1dfb8423c98a252bb669fbe21ffefcd6705")
+aVimVersions+=("0004");aVimSha1s+=("361060ddd9bc442ad45c07260584b56de46ebfd5")
 
 function check_vim_version() {
     hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)

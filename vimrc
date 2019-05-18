@@ -1,4 +1,4 @@
-" version 0003
+" version 0004
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
@@ -21,6 +21,7 @@ cmap w!! w !sudo tee > /dev/null %
 " https://stackoverflow.com/a/18296266
 " thanks to FDinoff
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype sh noremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
