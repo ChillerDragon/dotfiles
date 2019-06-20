@@ -1,9 +1,25 @@
 #!/bin/bash
 aVimVersions=();aVimSha1s=()
-aVimVersions+=("0001");aVimSha1s+=("f851be2ceb92cf34dac541237ee5e31485cefb63")
-aVimVersions+=("0002");aVimSha1s+=("5733e1b9ad5dd5c7509ed384290335207c44b812") 
-aVimVersions+=("0003");aVimSha1s+=("9ee9f1dfb8423c98a252bb669fbe21ffefcd6705")
-aVimVersions+=("0004");aVimSha1s+=("361060ddd9bc442ad45c07260584b56de46ebfd5")
+vf_vim=dev/vim_versions.txt
+
+if [ ! -f $vf_vim ]
+then
+    echo "Error: $vf_vim not found"
+    exit
+fi
+
+while read -r line; do
+    if [ "${line:0:1}" == "#" ]
+    then
+        continue # ignore comments
+    elif [ -z "$line" ]
+    then
+        continue # ignore empty lines
+    fi
+    sha1=$(echo $line | cut -d " " -f1 );version=$(echo $line | cut -d " " -f2)
+    aVimVersions+=("$version");aVimSha1s+=("$sha1")
+    # echo "loading sha1=$sha1 version=$version ..."
+done < "$vf_vim"
 
 function check_vim_version() {
     hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)
