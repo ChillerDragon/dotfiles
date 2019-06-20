@@ -1,4 +1,4 @@
-" version 0005
+" version 0006
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
@@ -11,6 +11,12 @@ set expandtab
 
 " chiller hax to repare delete key
 set backspace=indent,eol,start
+
+" tmux colors
+" https://github.com/tmux/tmux/issues/699#issuecomment-269572025
+" thanks to gapplef ( Julian Chen )
+set background=dark
+set t_Co=256
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 " https://stackoverflow.com/a/7078429
