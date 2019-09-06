@@ -8,6 +8,16 @@ then
     exit
 fi
 
+command -v sha1sum >/dev/null 2>&1 || {
+    echo "Error: command sha1sum not found"
+    # should be installed on linux
+    if [[ "$OSTYPE" == "darwin"* ]]
+    then
+        echo "brew install md5sha1sum"
+    fi
+    exit 1
+}
+
 while read -r line; do
     if [ "${line:0:1}" == "#" ]
     then
