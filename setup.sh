@@ -34,7 +34,7 @@ done < "$vf_vim"
 function check_vim_version() {
     hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)
     version_found=$(head -n 1 ~/.vimrc | cut -d " " -f3)
-    version_latest="${aVimVersions[-1]}"
+    version_latest="${aVimVersions[${#aVimVersions[@]}-1]}"
     echo "[vim] found vimrc version=$version_found sha1=$hash_found"
     if [ "$version_found" == "$version_latest" ]
     then
