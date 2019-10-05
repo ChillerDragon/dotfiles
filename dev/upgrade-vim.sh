@@ -1,4 +1,6 @@
 #!/bin/bash
+# stop on any error to make sure nothing gets corrupted
+set -e
 
 # TODO:
 # check git status and if it is clean git pull automatically
@@ -77,8 +79,18 @@ then
     exit
 fi
 
-version_updated=$((version_latest + 1))
+# convert to decimal using expr
+# because leading zeros are octal in bash
+# so versions higher than 0007 would not be supported
+version_updated=$(expr $version_latest + 1)
+if [ $? -ne 0 ]; then echo "Error: failed to update version.";exit 1; fi
+if [ "$version_latest" -ge "$version_updated" ]
+then
+    echo "Error: updated='$version_updated' is not bigger than latest='$version_latest'"
+    exit 1
+fi
 version_updated=$(printf "%04d\n" "$version_updated")
+if [ $? -ne 0 ]; then echo "Error: failed to parse version.";exit 1; fi
 echo "updating '$version_latest' -> '$version_updated' ..."
 
 cp ~/.vimrc "$rc_vim"
