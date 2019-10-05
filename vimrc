@@ -1,4 +1,4 @@
-" version 0007
+" version 0008
 " put these lines in ~/.vimrc
 syntax on
 set relativenumber
@@ -17,6 +17,11 @@ set backspace=indent,eol,start
 " thanks to gapplef ( Julian Chen )
 set background=dark
 set t_Co=256
+
+" restore cursor pos
+" https://stackoverflow.com/a/7894493
+" thanks to MetaEd
+source $VIMRUNTIME/vimrc_example.vim
 
 " Allow saving of files as sudo when I forgot to start vim using sudo.
 " https://stackoverflow.com/a/7078429
