@@ -1,4 +1,4 @@
-" version 0009
+" version 0010
 " put these lines in ~/.vimrc
 
 " Basics
@@ -30,6 +30,12 @@ source $VIMRUNTIME/vimrc_example.vim
 " https://stackoverflow.com/a/17812177
 " thanks to patrickvacek
 set viminfo='20,<1000,s1000
+
+" Clear highlighting on escape in normal mode
+" https://stackoverflow.com/a/1037182
+" thanks to @jonbho (twitter)
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
 
 " Backups, undos, and swap files
 "-----------------------------------------------------------------------------
