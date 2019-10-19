@@ -1,4 +1,4 @@
-" version 0010
+" version 0011
 " put these lines in ~/.vimrc
 
 " Basics
@@ -136,3 +136,23 @@ autocmd filetype asm nnoremap <F5> :w <bar> exec '!if [ -f '.shellescape('/tmp/v
 
 " add alternative compile key c
 map c <F4>
+
+" Plugins
+"-----------------------------------------------------------------------------
+
+" https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+" https://vi.stackexchange.com/a/624
+call plug#begin('~/.vim/plugged')
+
+" For MS Windows, this is probably better:
+"call plug#begin('~/vimfiles/plugged')
+
+Plug 'vim-scripts/OmniCppComplete'
+
+call plug#end()
