@@ -1,4 +1,4 @@
-" version 0011
+" version 0012
 " put these lines in ~/.vimrc
 
 " Basics
@@ -154,5 +154,6 @@ call plug#begin('~/.vim/plugged')
 "call plug#begin('~/vimfiles/plugged')
 
 Plug 'vim-scripts/OmniCppComplete'
+Plug 'ludovicchabant/vim-gutentags'
 
 call plug#end()
