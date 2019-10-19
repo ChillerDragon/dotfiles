@@ -93,10 +93,10 @@ version_updated=$(printf "%04d\n" "$version_updated")
 if [ $? -ne 0 ]; then echo "Error: failed to parse version.";exit 1; fi
 echo "updating '$version_latest' -> '$version_updated' ..."
 
-local_bak="~/vimrc.bak"
+local_bak=~/vimrc.bak
 tmp_bak="/tmp/vimrc_$(date +%s).bak"
 cp ~/.vimrc "$rc_vim"
-cp ~/.vimrc "$local_bak"
+cp ~/.vimrc $local_bak
 cp ~/.vimrc "$tmp_bak"
 echo "Backupped vimrc to:"
 echo "  $local_bak"
