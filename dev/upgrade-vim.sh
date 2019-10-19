@@ -108,5 +108,39 @@ echo "$hash_updated $version_updated" >> $vf_vim
 
 cp "$rc_vim" ~/.vimrc # overwrite local vim with new version to not get a custom oudated version
 
+echo ""
 echo "done."
+echo ""
 
+read -p "View git diff? [y/N]" -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    echo "aborting..."
+    echo "make sure to commit manually:"
+    echo "cd .. && git diff"
+    echo "git add . && git commit"
+    exit 1
+fi
+
+cd ..
+git diff
+read -p "Commit and release? [y/N]" -n 1 -r
+echo    # (optional) move to a new line
+if [[ ! $REPLY =~ ^[Yy]$ ]]
+then
+    echo "aborting... (warning uncommited changes)"
+    exit 1
+fi
+
+git add .
+git log
+git commit
+git push
+git status
+
+# show result in browser if crools is installed
+# https://github.com/ChillerDragon/crools/blob/master/vb
+if [ -x "$(command -v vb)" ]; then
+    vb
+fi
