@@ -1,4 +1,4 @@
-" version 0012
+" version 0013
 " put these lines in ~/.vimrc
 
 " Basics
@@ -155,5 +155,10 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'ycm-core/YouCompleteMe'
+" TODO: automate this
+" from https://github.com/ycm-core/YouCompleteMe#installation
+" cd ~/.vim/plugged/YouCompleteMe
+" python3 install.py --clang-completer
 
 call plug#end()
