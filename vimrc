@@ -1,4 +1,4 @@
-" version 0013
+" version 0014
 " put these lines in ~/.vimrc
 
 " Basics
@@ -36,6 +36,11 @@ set viminfo='20,<1000,s1000
 " thanks to @jonbho (twitter)
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
+
+" https://stackoverflow.com/a/28117335
+" Set the filetype based on the file's extension, but only if
+" 'filetype' has not already been set
+au BufRead,BufNewFile *.ebash setfiletype html
 
 " Backups, undos, and swap files
 "-----------------------------------------------------------------------------
