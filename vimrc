@@ -1,4 +1,4 @@
-" version 0014
+" version 0015
 " put these lines in ~/.vimrc
 
 " Basics
@@ -11,6 +11,8 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab
+
+let mapleader = ","
 
 " chiller hax to repare delete key
 set backspace=indent,eol,start
@@ -133,7 +135,7 @@ cmap w!! w !sudo tee > /dev/null %
 " https://stackoverflow.com/a/18296266
 " thanks to FDinoff
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
-autocmd filetype sh noremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
+autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype asm nnoremap <F4> :w <bar> exec '!mkdir -p /tmp/vim_asm_c/ && nasm -f elf64 '.shellescape('%').' -o '.shellescape('/tmp/vim_asm_c/%:r.o')' && ld -s -o '.shellescape('/tmp/vim_asm_c/%:r')' '.shellescape('/tmp/vim_asm_c/%:r.o')' && echo "Build successful. Press <F5> to run."'<CR>
@@ -141,6 +143,16 @@ autocmd filetype asm nnoremap <F5> :w <bar> exec '!if [ -f '.shellescape('/tmp/v
 
 " add alternative compile key c
 map c <F4>
+
+" running tests
+" type ',rt' in a shellscript to shellcheck the syntax
+" <leader>rt for (run tests) inpsired by:
+" httpst//8thlight.com/blog/chris-jordan/2016/06/13/running-tests-in-vim.html
+if executable('figlet') " if figlet is installed add a nice banner :)
+    autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck '.shellescape('%')<CR>
+else
+    autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck '.shellescape('%')<CR>
+endif
 
 " Plugins
 "-----------------------------------------------------------------------------
