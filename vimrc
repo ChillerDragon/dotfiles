@@ -1,4 +1,4 @@
-" version 0017
+" version 0018
 " put these lines in ~/.vimrc
 
 " Basics
@@ -147,12 +147,15 @@ if filename =~ "^/"
     "                                                                                                      |
     "                                                                                                      V
     autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && '.shellescape('%:r')<CR>
+    autocmd filetype c nnoremap <leader>rt :exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && gdb -ex=run '.shellescape('%:r')<CR>
 else
     " echo "relative"
     if filereadable("Makefile")
         autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
+        autocmd filetype c nnoremap <leader>rt :exec '!make && gdb -ex=run ./'.shellescape('%:r')<CR>
     else
         autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+        autocmd filetype c nnoremap <leader>rt :exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && gdb -ex=run ./'.shellescape('%:r')<CR>
     endif
 endif
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
