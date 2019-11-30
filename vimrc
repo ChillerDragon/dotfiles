@@ -1,4 +1,4 @@
-" version 0016
+" version 0017
 " put these lines in ~/.vimrc
 
 " Basics
@@ -13,6 +13,7 @@ set softtabstop=4
 set expandtab
 
 let mapleader = ","
+let filename = expand("%")
 
 " chiller hax to repare delete key
 set backspace=indent,eol,start
@@ -136,10 +137,23 @@ cmap w!! w !sudo tee > /dev/null %
 " thanks to FDinoff
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
-if filereadable("Makefile")
-    autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
+" echo "filename '"filename"'"
+if filename =~ "^/"
+    " echo "absolute"
+    " use absolute execution path to support compiling and especially
+    " executing things like:
+    " vim /tmp/foo.c
+    "                                                                                               note the missing ./
+    "                                                                                                      |
+    "                                                                                                      V
+    autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && '.shellescape('%:r')<CR>
 else
-    autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+    " echo "relative"
+    if filereadable("Makefile")
+        autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
+    else
+        autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+    endif
 endif
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype asm nnoremap <F4> :w <bar> exec '!mkdir -p /tmp/vim_asm_c/ && nasm -f elf64 '.shellescape('%').' -o '.shellescape('/tmp/vim_asm_c/%:r.o')' && ld -s -o '.shellescape('/tmp/vim_asm_c/%:r')' '.shellescape('/tmp/vim_asm_c/%:r.o')' && echo "Build successful. Press <F5> to run."'<CR>
