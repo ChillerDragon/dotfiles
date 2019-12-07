@@ -64,9 +64,9 @@ while read -r line; do
 done < "$vf_vim"
 
 hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)
-hash_latest="${aVimSha1s[-1]}"
+hash_latest="${aVimSha1s[${#aVimSha1s[@]}-1]}"
 version_found=$(head -n 1 ~/.vimrc | cut -d " " -f3)
-version_latest="${aVimVersions[-1]}"
+version_latest="${aVimVersions[${#aVimVersions[@]}-1]}"
 echo "found vimrc version=$version_found latest=$version_latest"
 echo "found vimrc sha1=$hash_found latest=$hash_latest"
 if [ "$version_found" != "$version_latest" ]
@@ -102,7 +102,7 @@ echo "Backupped vimrc to:"
 echo "  $local_bak"
 echo "  $tmp_bak"
 
-vimrc_body=$(tail $rc_vim -n +2)
+vimrc_body=$(sed -n '2,$p' $rc_vim)
 vimrc_header='" version '$version_updated
 
 echo "$vimrc_header" > $rc_vim
