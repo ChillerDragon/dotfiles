@@ -1,4 +1,4 @@
-" version 0019
+" version 0020
 " put these lines in ~/.vimrc
 
 " Basics
@@ -44,6 +44,14 @@ nnoremap <esc>^[ <esc>^[
 " Set the filetype based on the file's extension, but only if
 " 'filetype' has not already been set
 au BufRead,BufNewFile *.ebash setfiletype html
+
+let c_dbg = "gdb -ex=run"
+if has("unix")
+    let s:uname = system("uname -s")
+    if s:uname == "Darwin\n"
+        let c_dbg = "lldb"
+    endif
+endif
 
 " Backups, undos, and swap files
 "-----------------------------------------------------------------------------
@@ -147,15 +155,15 @@ if filename =~ "^/"
     "                                                                                                      |
     "                                                                                                      V
     autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && '.shellescape('%:r')<CR>
-    autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && gdb -ex=run '.shellescape('%:r')<CR>
+    autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' '.shellescape('%:r')<CR>
 else
     " echo "relative"
     if filereadable("Makefile")
         autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
-        autocmd filetype c nnoremap <leader>rt :exec '!make && gdb -ex=run ./'.shellescape('%:r')<CR>
+        autocmd filetype c nnoremap <leader>rt :exec '!make && 'c_gdb' ./'.shellescape('%:r')<CR>
     else
         autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-        autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && gdb -ex=run ./'.shellescape('%:r')<CR>
+        autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' ./'.shellescape('%:r')<CR>
     endif
 endif
 autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
