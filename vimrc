@@ -1,4 +1,4 @@
-" version 0021
+" version 0022
 " put these lines in ~/.vimrc
 
 " Basics
@@ -183,6 +183,19 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 else
     autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck '.shellescape('%')<CR>
 endif
+
+" https://vi.stackexchange.com/a/2237
+" vim -b : edit binary using xxd-format!
+augroup Binary
+  au!
+  au BufReadPre  *.demo let &bin=1
+  au BufReadPost *.demo if &bin | %!xxd
+  au BufReadPost *.demo set ft=xxd | endif
+  au BufWritePre *.demo if &bin | %!xxd -r
+  au BufWritePre *.demo endif
+  au BufWritePost *.demo if &bin | %!xxd
+  au BufWritePost *.demo set nomod | endif
+augroup END
 
 " Plugins
 "-----------------------------------------------------------------------------
