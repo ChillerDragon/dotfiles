@@ -18,6 +18,30 @@ command -v sha1sum >/dev/null 2>&1 || {
     exit 1
 }
 
+is_vim_install=0
+
+if [ -x "$(command -v vim)" ] && vim --version | grep -q Linking.*python
+then
+    echo "[*] vim with python support found"
+else
+    echo "[*] no vim with python support found!"
+    echo "[*] installing vim and dependencys ..."
+    is_vim_install=1
+    if [ "$UID" == "0" ]
+    then
+        apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+    else
+        if [ -x "$(command -v sudo)" ]
+        then
+            sudo apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+        else
+            echo "[!] Error: install sudo"
+            exit 1
+        fi
+    fi
+else
+
+
 while read -r line; do
     if [ "${line:0:1}" == "#" ]
     then
@@ -93,4 +117,14 @@ fi
 
 update_vim
 update_bashprofile
+
+
+if [ "$is_vim_install" == "1" ]
+then
+    vim
+    cwd="$(pwd)"
+    cd ~/.vim/plugged/YouCompleteMe || exit 1
+    python3 install.py
+    cd "$cwd" || exit 1
+fi
 
