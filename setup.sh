@@ -39,7 +39,7 @@ else
             exit 1
         fi
     fi
-else
+fi
 
 
 while read -r line; do
