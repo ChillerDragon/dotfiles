@@ -100,6 +100,27 @@ function update_bashprofile() {
     echo "[bash_profile] has to be done manually."
 }
 
+function update_teeworlds() {
+    mkdir -p ~/.teeworlds
+    cd ~/.teeworlds || exit 1
+    if [ ! -d GitSettings/ ]
+    then
+        git clone git@github.com:ChillerTW/GitSettings.git
+    fi
+    cd GitSettings || exit 1
+    git pull
+    cd ~/.teeworlds || exit 1
+    if [ ! -d maps ]
+    then
+        git clone git@github.com:ChillerTW/GitMaps.git maps
+    fi
+    cd ~/.teeworlds || exit 1
+    if [ -f settings_zilly.cfg ]
+    then
+        echo "exec GitSettings/settings_zilly.cfg" > settings_zilly.cfg
+    fi
+}
+
 echo "Starting chiller configs setup script"
 echo "This script replaces config files without backups."
 echo "Data might be lost!"
@@ -117,6 +138,7 @@ fi
 
 update_vim
 update_bashprofile
+update_teeworlds
 
 
 if [ "$is_vim_install" == "1" ]
