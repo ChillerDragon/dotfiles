@@ -1,4 +1,4 @@
-" version 0022
+" version 0023
 " put these lines in ~/.vimrc
 
 " Basics
@@ -145,6 +145,8 @@ cmap w!! w !sudo tee > /dev/null %
 " thanks to FDinoff
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
+autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
+autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
 " echo "filename '"filename"'"
 if filename =~ "^/"
     " echo "absolute"
