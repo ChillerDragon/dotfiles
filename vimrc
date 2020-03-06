@@ -1,4 +1,4 @@
-" version 0023
+" version 0024
 " put these lines in ~/.vimrc
 
 " Basics
@@ -182,8 +182,10 @@ map c <F4>
 " httpst//8thlight.com/blog/chris-jordan/2016/06/13/running-tests-in-vim.html
 if executable('figlet') " if figlet is installed add a nice banner :)
     autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck '.shellescape('%')<CR>
+    autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
 else
     autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck '.shellescape('%')<CR>
+    autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
 endif
 
 " https://vi.stackexchange.com/a/2237
