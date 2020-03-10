@@ -176,9 +176,9 @@ else
 fi
 
 update_vim
+update_tmux
 update_bashprofile
 update_teeworlds
-update_tmux
 
 
 if [ "$is_vim_install" == "1" ]
