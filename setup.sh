@@ -18,9 +18,31 @@ command -v sha1sum >/dev/null 2>&1 || {
     exit 1
 }
 
+function install_tool() {
+    local tool
+    tool="$1"
+    if [[ "$OSTYPE" == "darwin"* ]]
+    then
+        brew install "$tool"
+    else
+        if [ "$UID" == "0" ]
+        then
+            apt install "$tool"
+        else
+            if [ -x "$(command -v sudo)" ]
+            then
+                sudo apt install "$tool"
+            else
+                echo "[!] Error: install sudo"
+                exit 1
+            fi
+        fi
+    fi
+}
+
 is_vim_install=0
 
-if [ -x "$(command -v vim)" ] && vim --version | grep -q Linking.*python
+if [ -x "$(command -v vim)" ] && vim --version | grep -q 'Linking.*python'
 then
     echo "[*] vim with python support found"
 else
@@ -101,6 +123,8 @@ function update_bashprofile() {
 }
 
 function update_teeworlds() {
+    local cwd
+    cwd="$(pwd)"
     mkdir -p ~/.teeworlds
     cd ~/.teeworlds || exit 1
     if [ ! -d GitSettings/ ]
@@ -119,13 +143,28 @@ function update_teeworlds() {
     then
         echo "exec GitSettings/settings_zilly.cfg" > settings_zilly.cfg
     fi
+    cd "$cwd" || exit 1
+}
+
+function update_tmux() {
+    if [ -x "$(command -v tmux)" ]
+    then
+        install_tool tmux
+    fi
+    if [ ! -f ~/.tmux.conf ]
+    then
+        cp tmux.conf ~/.tmux.conf || exit 1
+        echo "[tmux] installed config."
+    else
+        echo "[tmux] config has to be updated manually."
+    fi
 }
 
 echo "Starting chiller configs setup script"
 echo "This script replaces config files without backups."
 echo "Data might be lost!"
 echo "Do you really want to execute it? [y/N]"
-read -n 1 -p "" inp
+read -rn 1 -p "" inp
 echo ""
 if [ "$inp" == "Y" ]; then
     test
@@ -139,6 +178,7 @@ fi
 update_vim
 update_bashprofile
 update_teeworlds
+update_tmux
 
 
 if [ "$is_vim_install" == "1" ]
