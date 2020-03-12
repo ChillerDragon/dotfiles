@@ -1,4 +1,4 @@
-" version 0024
+" version 0025
 " put these lines in ~/.vimrc
 
 " Basics
@@ -147,6 +147,7 @@ autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
 autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
+autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 " echo "filename '"filename"'"
 if filename =~ "^/"
     " echo "absolute"
@@ -183,9 +184,11 @@ map c <F4>
 if executable('figlet') " if figlet is installed add a nice banner :)
     autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck '.shellescape('%')<CR>
     autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
+    autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
 else
     autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck '.shellescape('%')<CR>
     autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
+    autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
 endif
 
 " https://vi.stackexchange.com/a/2237
