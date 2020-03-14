@@ -41,3 +41,38 @@ fi
 export PATH="${HOME}/.rbenv/bin:${PATH}"
 type -a rbenv > /dev/null && eval "$(rbenv init -)" # Load rbenv if installed
 export PATH="./bin:./node_modules/.bin:${PATH}:/usr/local/sbin" # some nice relative paths
+
+# https://unix.stackexchange.com/a/113768
+if command -v tmux &> /dev/null
+then
+    if [ ! -n "$PS1" ]
+    then
+        # echo "[tmux] Error: could not start (PS1)"
+        return
+    # elif [[ "$TERM" =~ screen ]]
+    # then
+    #     echo "[tmux] Error: could not start (screen)"
+    #     return
+    elif [[ "$TERM" =~ tmux ]]
+    then
+        # echo "[tmux] Error: could not start (tmux)"
+        return
+    elif [ ! -z "$TMUX" ]
+    then
+        # echo "[tmux] Error: could not start (TMUX)"
+        return
+    fi
+    echo "start tmux? [Y/n]"
+    read -r -n 1 yn
+    echo ""
+    if ! [[ "$yn" =~ [nN] ]]
+    then
+        session="$(tmux ls | head -n1 | cut -d':' -f1)";
+        if [ "$session" == "" ]
+        then
+            exec tmux
+        else
+            exec tmux a -t "$session"
+        fi
+    fi
+fi
