@@ -1,4 +1,4 @@
-" version 0025
+" version 0026
 " put these lines in ~/.vimrc
 
 " Basics
@@ -185,10 +185,16 @@ if executable('figlet') " if figlet is installed add a nice banner :)
     autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck '.shellescape('%')<CR>
     autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
     autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
+    if executable('jq')
+        autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
+    endif
 else
     autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck '.shellescape('%')<CR>
     autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
     autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
+    if executable('jq')
+        autocmd filetype json nnoremap <leader>rt :exec '!cat '.shellescape('%')' \| jq'<CR>
+    endif
 endif
 
 " https://vi.stackexchange.com/a/2237
