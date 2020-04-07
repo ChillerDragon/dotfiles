@@ -16,20 +16,23 @@ RC_FILE=~/.vimrc
 VERSION_FILE=vim_versions.txt
 LOCAL_BAK="${RC_FILE}.bak"
 TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
+COMMENT='"'
 
 function init_type() {
     local name="$1"
     local path="$2"
-    if [ "$#" != "2" ]
+    local comment="$3"
+    if [ "$#" != "3" ]
     then
-        echo "Error: init_type() invalid number of arguments $#/2"
+        echo "Error: init_type() invalid number of arguments $#/3"
         exit 1
     fi
     REPO_FILE="$name"
     RC_FILE="$path"
-    VERSION_FILE=vim_versions.txt
+    VERSION_FILE="${name::-2}_versions.txt"
     LOCAL_BAK="${RC_FILE}.bak"
     TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
+    COMMENT="$comment"
 }
 
 function menu_types() {
@@ -43,22 +46,25 @@ function menu_types() {
         aRCFILES+=("$rcfile")
     done
     aRCFILES+=("Quit")
-	PS3='Select a rc file: '
-	select opt in "${aRCFILES[@]}"
-	do
-		case $opt in
-			"vim")
-                echo "selected vim"
-                init_type vimrc ~/.vimrc
+    PS3='Select a rc file: '
+    select opt in "${aRCFILES[@]}"
+    do
+        case $opt in
+            "vim")
+                init_type vimrc ~/.vimrc '"'
                 break
-				;;
-			"Quit")
+                ;;
+            "bash")
+                init_type bashrc ~/.bashrc '#'
+                break
+                ;;
+            "Quit")
                 echo "quitting..."
-				exit 0
-				;;
-			*) echo "invalid option $REPLY";;
-		esac
-	done
+                exit 0
+                ;;
+            *) echo "invalid option $REPLY";;
+        esac
+    done
 }
 
 menu_types
@@ -158,7 +164,7 @@ echo "  $LOCAL_BAK"
 echo "  $TMP_BAK"
 
 rc_body=$(sed -n '2,$p' "$REPO_FILE")
-rc_header="\" version $version_updated"
+rc_header="$COMMENT version $version_updated"
 
 echo "$rc_header" > "$REPO_FILE"
 echo "$rc_body" >> "$REPO_FILE"
