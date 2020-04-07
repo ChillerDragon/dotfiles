@@ -9,11 +9,59 @@ shopt -s extglob # ${version_latest##+(0)}
 
 aRCVersions=();aRCSha1s=()
 
+# actually just samples
+# they get overwritten in init_type()
 REPO_FILE=vimrc
 RC_FILE=~/.vimrc
 VERSION_FILE=vim_versions.txt
 LOCAL_BAK="${RC_FILE}.bak"
 TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
+
+function init_type() {
+    local name="$1"
+    local path="$2"
+    if [ "$#" != "2" ]
+    then
+        echo "Error: init_type() invalid number of arguments $#/2"
+        exit 1
+    fi
+    REPO_FILE="$name"
+    RC_FILE="$path"
+    VERSION_FILE=vim_versions.txt
+    LOCAL_BAK="${RC_FILE}.bak"
+    TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
+}
+
+function menu_types() {
+    local rcfile
+    local aRCFILES=()
+    shopt -s globstar nullglob
+    for rcfile in ./*_versions.txt
+    do
+        rcfile="${rcfile%%_versions.txt*}"
+        rcfile="${rcfile:2}"
+        aRCFILES+=("$rcfile")
+    done
+    aRCFILES+=("Quit")
+	PS3='Select a rc file: '
+	select opt in "${aRCFILES[@]}"
+	do
+		case $opt in
+			"vim")
+                echo "selected vim"
+                init_type vimrc ~/.vimrc
+                break
+				;;
+			"Quit")
+                echo "quitting..."
+				exit 0
+				;;
+			*) echo "invalid option $REPLY";;
+		esac
+	done
+}
+
+menu_types
 
 echo "!!! WARNING !!!"
 echo "Only run this script if you know what you are doing!"
@@ -103,7 +151,7 @@ fi
 echo "updating '$version_latest' -> '$version_updated' ..."
 
 cp "$RC_FILE" "$REPO_FILE"
-cp "$RC_FILE" $LOCAL_BAK
+cp "$RC_FILE" "$LOCAL_BAK"
 cp "$RC_FILE" "$TMP_BAK"
 echo "Backupped $REPO_FILE to:"
 echo "  $LOCAL_BAK"
