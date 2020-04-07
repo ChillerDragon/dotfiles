@@ -126,6 +126,18 @@ function update_vim() {
     cp vimrc "$rcpath"
 }
 
+function update_bash() {
+    local rcpath
+    rcpath="$HOME/.bashrc"
+    if [ -f  "$rcpath" ]
+    then
+        check_dotfile_version bash "$rcpath"
+        return
+    fi
+    echo "[bash] updating..."
+    cp bashrc "$rcpath"
+}
+
 function update_bashprofile() {
     echo "[bash_profile] has to be done manually."
 }
@@ -184,6 +196,7 @@ else
 fi
 
 update_vim
+update_bash
 update_tmux
 update_bashprofile
 update_teeworlds
