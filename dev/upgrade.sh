@@ -54,12 +54,12 @@ function menu_types() {
                 init_type bashrc ~/.bashrc '#'
                 break
                 ;;
-            "vim")
-                init_type vimrc ~/.vimrc '"'
+            "tmux")
+                init_type tmux.conf ~/.tmux.conf '#'
                 break
                 ;;
-            "bash")
-                init_type bashrc ~/.bashrc '#'
+            "vim")
+                init_type vimrc ~/.vimrc '"'
                 break
                 ;;
             "Quit")

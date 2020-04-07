@@ -61,7 +61,8 @@ function check_dotfile_version() {
     local aVersions=()
     local aSha1s=()
     dotfile="$1"
-    dotfile_path="$2"
+    dotfile_repo="$2"
+    dotfile_path="$3"
     versionfile=dev/${dotfile}_versions.txt
 
     if [ ! -f "$versionfile" ]
@@ -119,11 +120,11 @@ function update_vim() {
     rcpath="$HOME/.vimrc"
     if [ -f  "$rcpath" ]
     then
-        check_dotfile_version vim "$rcpath"
+        check_dotfile_version vim vimrc "$rcpath"
         return
     fi
     echo "[vim] updating..."
-    cp vimrc "$rcpath"
+    cp vimrc "$rcpath" || exit 1
 }
 
 function update_bash() {
@@ -131,11 +132,27 @@ function update_bash() {
     rcpath="$HOME/.bashrc"
     if [ -f  "$rcpath" ]
     then
-        check_dotfile_version bash "$rcpath"
+        check_dotfile_version bash bashrc "$rcpath"
         return
     fi
     echo "[bash] updating..."
-    cp bashrc "$rcpath"
+    cp bashrc "$rcpath" || exit 1
+}
+
+function update_tmux() {
+    local rcpath
+    if [ ! -x "$(command -v tmux)" ]
+    then
+        install_tool tmux
+    fi
+    rcpath="$HOME/.tmux.conf"
+    if [ -f  "$rcpath" ]
+    then
+        check_dotfile_version tmux tmux.conf "$rcpath"
+        return
+    fi
+    echo "[tmux] updating..."
+    cp tmux.conf "$rcpath" || exit 1
 }
 
 function update_bashprofile() {
@@ -164,20 +181,6 @@ function update_teeworlds() {
         echo "exec GitSettings/settings_zilly.cfg" > settings_zilly.cfg
     fi
     cd "$cwd" || exit 1
-}
-
-function update_tmux() {
-    if [ ! -x "$(command -v tmux)" ]
-    then
-        install_tool tmux
-    fi
-    if [ ! -f ~/.tmux.conf ]
-    then
-        cp tmux.conf ~/.tmux.conf || exit 1
-        echo "[tmux] installed config."
-    else
-        echo "[tmux] config has to be updated manually."
-    fi
 }
 
 echo "Starting chiller configs setup script"
