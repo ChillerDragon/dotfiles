@@ -25,13 +25,13 @@ then
     exit 1
 fi
 
-sha1="$(sha1sum ../"$repofile" | cut -d' ' -f1)"
-
 # header (rcfile)
 rc_body="$(cat ../"$repofile")"
 rc_header="$comment version 0001"
 echo "$rc_header" > ../"$repofile"
 echo "$rc_body" >> ../"$repofile"
+
+sha1="$(sha1sum ../"$repofile" | cut -d' ' -f1)"
 
 # version (version file)
 echo "# sha1sums of the $repofile versions" > "$versionfile"
