@@ -7,18 +7,22 @@ set -e
 # if status is dirty cancle
 # to make sure our versions are up to date
 
-vf_vim="error"
-rc_vim="error"
-aVimVersions=();aVimSha1s=()
+aRCVersions=();aRCSha1s=()
+
+REPO_FILE=vimrc
+RC_FILE=~/.vimrc
+VERSION_FILE=vim_versions.txt
+LOCAL_BAK="${RC_FILE}.bak"
+TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
 
 echo "!!! WARNING !!!"
 echo "Only run this script if you know what you are doing!"
-echo "Make sure to have a up to date vim_versions.txt"
+echo "Make sure to have a up to date $VERSION_FILE"
 echo "Always run git pull before executing this!"
 echo ""
-echo "This script looks at your ~/.vimrc and updates the vimrc in this repo"
+echo "This script looks at your $RC_FILE and updates the $REPO_FILE in this repo"
 echo ""
-echo "usage: update your ~/.vimrc file BUT NOT THE VERSION and then run the script"
+echo "usage: update your $RC_FILE file BUT NOT THE VERSION and then run the script"
 echo "the script updates the version and computes a sha1 and stores it in the repo"
 read -p "Run the script? [y/N]" -n 1 -r
 echo    # (optional) move to a new line
@@ -28,25 +32,25 @@ then
     exit 1
 fi
 
-if [ -f vim_versions.txt ]
+if [ -f "$VERSION_FILE" ]
 then
-    vf_vim=vim_versions.txt
-elif [ -f dev/vim_versions.txt ]
+    VERSION_FILE="$VERSION_FILE"
+elif [ -f "dev/$VERSION_FILE" ]
 then
-    vf_vim=dev/vim_versions.txt
+    VERSION_FILE="dev/$VERSION_FILE"
 else
-    echo "Error: vim_versions.txt not found"
+    echo "Error: $VERSION_FILE not found"
     exit
 fi
 
-if [ -f vimrc ]
+if [ -f "$REPO_FILE" ]
 then
-    rc_vim=vimrc
-elif [ -f ../vimrc ]
+    REPO_FILE="$REPO_FILE"
+elif [ -f "../$REPO_FILE" ]
 then
-    rc_vim=../vimrc
+    REPO_FILE="../$REPO_FILE"
 else
-    echo "Error: vimrc not found"
+    echo "Error: $REPO_FILE not found"
     exit
 fi
 
@@ -58,17 +62,17 @@ while read -r line; do
     then
         continue # ignore empty lines
     fi
-    sha1=$(echo $line | cut -d " " -f1 );version=$(echo $line | cut -d " " -f2)
-    aVimVersions+=("$version");aVimSha1s+=("$sha1")
+    sha1=$(echo "$line" | cut -d " " -f1 );version=$(echo "$line" | cut -d " " -f2)
+    aRCVersions+=("$version");aRCSha1s+=("$sha1")
     # echo "loading sha1=$sha1 version=$version ..."
-done < "$vf_vim"
+done < "$VERSION_FILE"
 
-hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)
-hash_latest="${aVimSha1s[${#aVimSha1s[@]}-1]}"
-version_found=$(head -n 1 ~/.vimrc | cut -d " " -f3)
-version_latest="${aVimVersions[${#aVimVersions[@]}-1]}"
-echo "found vimrc version=$version_found latest=$version_latest"
-echo "found vimrc sha1=$hash_found latest=$hash_latest"
+hash_found=$(sha1sum "$RC_FILE" | cut -d " " -f1)
+hash_latest="${aRCSha1s[${#aRCSha1s[@]}-1]}"
+version_found=$(head -n 1 "$RC_FILE" | cut -d " " -f3)
+version_latest="${aRCVersions[${#aRCVersions[@]}-1]}"
+echo "found $REPO_FILE version=$version_found latest=$version_latest"
+echo "found $REPO_FILE sha1=$hash_found latest=$hash_latest"
 if [ "$version_found" != "$version_latest" ]
 then
     echo "Error: version is not latest."
@@ -89,31 +93,29 @@ then
     echo "Error: updated='$version_updated' is not bigger than latest='$version_latest'"
     exit 1
 fi
-version_updated=$(printf "%04d\n" "$version_updated")
+version_updated=$(printf "%04d\\n" "$version_updated")
 if [ $? -ne 0 ]; then echo "Error: failed to parse version.";exit 1; fi
 echo "updating '$version_latest' -> '$version_updated' ..."
 
-local_bak=~/vimrc.bak
-tmp_bak="/tmp/vimrc_$(date +%s).bak"
-cp ~/.vimrc "$rc_vim"
-cp ~/.vimrc $local_bak
-cp ~/.vimrc "$tmp_bak"
-echo "Backupped vimrc to:"
-echo "  $local_bak"
-echo "  $tmp_bak"
+cp "$RC_FILE" "$REPO_FILE"
+cp "$RC_FILE" $LOCAL_BAK
+cp "$RC_FILE" "$TMP_BAK"
+echo "Backupped $REPO_FILE to:"
+echo "  $LOCAL_BAK"
+echo "  $TMP_BAK"
 
-vimrc_body=$(sed -n '2,$p' $rc_vim)
-vimrc_header='" version '$version_updated
+rc_body=$(sed -n '2,$p' "$REPO_FILE")
+rc_header="\" version $version_updated"
 
-echo "$vimrc_header" > $rc_vim
-echo "$vimrc_body" >> $rc_vim
+echo "$rc_header" > "$REPO_FILE"
+echo "$rc_body" >> "$REPO_FILE"
 
-hash_updated=$(sha1sum $rc_vim | cut -d " " -f1)
+hash_updated=$(sha1sum "$REPO_FILE" | cut -d " " -f1)
 echo "updating '$hash_latest' -> '$hash_updated' ..."
 
-echo "$hash_updated $version_updated" >> $vf_vim
+echo "$hash_updated $version_updated" >> "$VERSION_FILE"
 
-cp "$rc_vim" ~/.vimrc # overwrite local vim with new version to not get a custom oudated version
+cp "$REPO_FILE" "$RC_FILE" # overwrite local rc file with new version to not get a custom oudated version
 
 echo ""
 echo "done."
@@ -151,3 +153,4 @@ git status
 if [ -x "$(command -v vb)" ]; then
     vb
 fi
+
