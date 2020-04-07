@@ -19,6 +19,11 @@ then
     echo "Error: '$versionfile' already exists."
     exit 1
 fi
+if [ -f "$rcfile" ]
+then
+    echo "Error: '$rcfile' config file not found."
+    exit 1
+fi
 
 sha1="$(sha1sum ../"$repofile" | cut -d' ' -f1)"
 
@@ -33,12 +38,21 @@ echo "# sha1sums of the $repofile versions" > "$versionfile"
 echo "$sha1 0001" >> "$versionfile"
 
 # edit upgrade.sh (code generation)
-rcfile="$(echo "$rcfile" | sed 's/\//\\\//')"
+rcfile_escaped="$(echo "$rcfile" | sed 's/\//\\\//')"
 read -rd '' selectcode << EOF
-            \\"$name\\"\\)\\n                init_type $repofile $rcfile \x27$comment\x27\\n                break\\n                ;;\\n            \\"vim\\"\\)
+            \\"$name\\"\\)\\n                init_type $repofile $rcfile_escaped \\x27$comment\\x27\\n                break\\n                ;;\\n            \\"vim\\"\\)
 EOF
 cmd="sed 's/\"vim\"[)]/$selectcode/' upgrade.sh"
 echo "$cmd"
 eval "$cmd" > tmp_upgrade.sh
 mv tmp_upgrade.sh upgrade.sh
+
+# TODO: do this better
+# update version in actual used rc file
+cmd="cp $rcfile /tmp/${repofile}.bak"
+echo "$cmd"
+eval "$cmd"
+cmd="cp ../$repofile $rcfile"
+echo "$cmd"
+eval "$cmd"
 
