@@ -1,6 +1,6 @@
 #!/bin/bash
-# stop on any error to make sure nothing gets corrupted
-set -e
+set -e # exit on err
+shopt -s extglob # ${version_latest##+(0)}
 
 # TODO:
 # check git status and if it is clean git pull automatically
@@ -83,13 +83,14 @@ then
     exit
 fi
 
-# convert to decimal using expr
+# convert to decimal using glob to strip leading zeros
 # because leading zeros are octal in bash
 # so versions higher than 0007 would not be supported
-if ! version_updated=$(expr $version_latest + 1)
+if ! version_updated=${version_latest##+(0)}
 then
-    echo "Error: failed to update version.";exit 1;
+    echo "Error: failed to update version ($version_latest).";exit 1;
 fi
+version_updated=$((version_updated + 1))
 if [ "$version_latest" -ge "$version_updated" ]
 then
     echo "Error: updated='$version_updated' is not bigger than latest='$version_latest'"
