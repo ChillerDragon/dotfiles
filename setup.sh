@@ -1,13 +1,4 @@
 #!/bin/bash
-aVimVersions=();aVimSha1s=()
-vf_vim=dev/vim_versions.txt
-
-if [ ! -f $vf_vim ]
-then
-    echo "Error: $vf_vim not found"
-    exit
-fi
-
 command -v sha1sum >/dev/null 2>&1 || {
     echo "Error: command sha1sum not found"
     # should be installed on linux
@@ -63,59 +54,76 @@ else
     fi
 fi
 
+function check_dotfile_version() {
+    local dotfile
+    local dotfile_path
+    local versionfile
+    local aVersions=()
+    local aSha1s=()
+    dotfile="$1"
+    dotfile_path="$2"
+    versionfile=dev/${dotfile}_versions.txt
 
-while read -r line; do
-    if [ "${line:0:1}" == "#" ]
+    if [ ! -f "$versionfile" ]
     then
-        continue # ignore comments
-    elif [ -z "$line" ]
-    then
-        continue # ignore empty lines
+        echo "Error: $versionfile not found"
+        exit
     fi
-    sha1=$(echo $line | cut -d " " -f1 );version=$(echo $line | cut -d " " -f2)
-    aVimVersions+=("$version");aVimSha1s+=("$sha1")
-    # echo "loading sha1=$sha1 version=$version ..."
-done < "$vf_vim"
 
-function check_vim_version() {
-    hash_found=$(sha1sum ~/.vimrc | cut -d " " -f1)
-    version_found=$(head -n 1 ~/.vimrc | cut -d " " -f3)
-    version_latest="${aVimVersions[${#aVimVersions[@]}-1]}"
-    echo "[vim] found vimrc version=$version_found sha1=$hash_found"
+    while read -r line; do
+        if [ "${line:0:1}" == "#" ]
+        then
+            continue # ignore comments
+        elif [ -z "$line" ]
+        then
+            continue # ignore empty lines
+        fi
+        sha1=$(echo "$line" | cut -d " " -f1 );version=$(echo "$line" | cut -d " " -f2)
+        aVersions+=("$version");aSha1s+=("$sha1")
+        # echo "loading sha1=$sha1 version=$version ..."
+    done < "$versionfile"
+
+
+    hash_found=$(sha1sum "$dotfile_path" | cut -d " " -f1)
+    version_found=$(head -n 1 "$dotfile_path" | cut -d " " -f3)
+    version_latest="${aVersions[${#aVersions[@]}-1]}"
+    echo "[$dotfile] found $dotfile version=$version_found sha1=$hash_found"
     if [ "$version_found" == "$version_latest" ]
     then
-        echo "[vim] already latest verson."
+        echo "[$dotfile] already latest verson."
         return
     fi
-    for v in ${!aVimVersions[@]}
+    for v in "${!aVersions[@]}"
     do
-        if [ "$version_found" != "${aVimVersions[v]}" ]
+        if [ "$version_found" != "${aVersions[v]}" ]
         then
             continue
         fi
         # found version:
-        if [ "$hash_found" == "${aVimSha1s[v]}" ]
+        if [ "$hash_found" == "${aSha1s[v]}" ]
         then
-            echo "[vim] outdated vimrc version verified by sha1"
-            echo "[vim] updating..."
-            cp vimrc ~/.vimrc
+            echo "[$dotfile] outdated $dotfile version verified by sha1"
+            echo "[$dotfile] updating..."
+            cp "$dotfile" "$dotfile_path"
         else
-            echo "[vim] WARNING: not updating vim custom version found"
-            echo "[vim] sha1 missmatch '$hash_found' != '${aVimSha1s[v]}'"
+            echo "[$dotfile] WARNING: not updating $dotfile custom version found"
+            echo "[$dotfile] sha1 missmatch '$hash_found' != '${aSha1s[v]}'"
         fi
         return
     done
-    echo "[vim] WARNING: unkown version didn't update .vimrc"
+    echo "[$dotfile] WARNING: unkown version didn't update $dotfile"
 }
 
 function update_vim() {
-    if [ -f  ~/.vimrc ]
+    local rcpath
+    rcpath="$HOME/.vimrc"
+    if [ -f  "$rcpath" ]
     then
-        check_vim_version
+        check_dotfile_version vim "$rcpath"
         return
     fi
     echo "[vim] updating..."
-    cp vimrc ~/.vimrc
+    cp vimrc "$rcpath"
 }
 
 function update_bashprofile() {
@@ -147,7 +155,7 @@ function update_teeworlds() {
 }
 
 function update_tmux() {
-    if [ -x "$(command -v tmux)" ]
+    if [ ! -x "$(command -v tmux)" ]
     then
         install_tool tmux
     fi
