@@ -58,6 +58,10 @@ function menu_types() {
                 init_type tmux.conf ~/.tmux.conf '#'
                 break
                 ;;
+            "irb")
+                init_type irbrc ~/.irbrc '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break

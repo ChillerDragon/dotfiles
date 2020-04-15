@@ -155,6 +155,18 @@ function update_tmux() {
     cp tmux.conf "$rcpath" || exit 1
 }
 
+function update_irb() {
+    local rcpath
+    rcpath="$HOME/.irbrc"
+    if [ -f  "$rcpath" ]
+    then
+        check_dotfile_version irb irbrc "$rcpath"
+        return
+    fi
+    echo "[irb] updating..."
+    cp irb "$rcpath" || exit 1
+}
+
 function update_bashprofile() {
     echo "[bash_profile] has to be done manually."
 }
@@ -201,6 +213,7 @@ fi
 update_vim
 update_bash
 update_tmux
+update_irb
 update_bashprofile
 update_teeworlds
 
