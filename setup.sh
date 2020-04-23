@@ -190,7 +190,7 @@ function update_teeworlds() {
     cd ~/.teeworlds || exit 1
     if [ -f settings_zilly.cfg ]
     then
-        echo "exec GitSettings/settings_zilly.cfg" > settings_zilly.cfg
+        echo "exec GitSettings/zilly.cfg" > settings_zilly.cfg
     fi
     cd "$cwd" || exit 1
 }
