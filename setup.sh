@@ -164,7 +164,7 @@ function update_irb() {
         return
     fi
     echo "[irb] updating..."
-    cp irb "$rcpath" || exit 1
+    cp irbrc "$rcpath" || exit 1
 }
 
 function update_bashprofile() {
