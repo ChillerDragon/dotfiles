@@ -1,4 +1,4 @@
-# version 0001
+# version 0002
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -123,6 +123,10 @@ export PATH="$HOME/.githubcli/bin:$PATH"
 export VISUAL=vim
 export EDITOR="$VISUAL"
 
+# deactivates ctrl+s locking and ctrl+q playing back
+# to allow for using ctrl+s in ctrl+r (reverse search)
+stty -ixon
+
 #
 # COMPILERS AND BINARYS
 #
@@ -147,6 +151,8 @@ then
 fi
 
 # go
+# TODO: use modern go path thingys
+export GOPATH=$HOME/go
 export PATH="$HOME/go/bin:$PATH"
 
 # um from source
@@ -157,6 +163,9 @@ export PATH="$PATH:$HOME/.local/bin"
 
 # crools is a thing lol
 export PATH="$HOME/Desktop/git/crools:$PATH"
+
+# blender 2.8 binary
+export PATH="$PATH:$HOME/blender-2.82a-linux64"
 
 #
 # HACKS AND FIXES

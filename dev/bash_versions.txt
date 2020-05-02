@@ -1,2 +1,3 @@
 # sha1sums of the bashrc versions
 d52ca14db71723ffe84386b7a595c30ee784dacc 0001
+18b1f61dccf9652cdffcd1c3b66d2833f2ac2f65 0002
