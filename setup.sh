@@ -1,4 +1,7 @@
 #!/bin/bash
+
+is_vim_install=0
+
 command -v sha1sum >/dev/null 2>&1 || {
     echo "Error: command sha1sum not found"
     # should be installed on linux
@@ -31,28 +34,33 @@ function install_tool() {
     fi
 }
 
-is_vim_install=0
-
-if [ -x "$(command -v vim)" ] && vim --version | grep -q 'Linking.*python'
-then
-    echo "[*] vim with python support found"
-else
-    echo "[*] no vim with python support found!"
-    echo "[*] installing vim and dependencys ..."
-    is_vim_install=1
-    if [ "$UID" == "0" ]
+function install_vim() {
+    if [ -x "$(command -v vim)" ] && vim --version | grep -q 'Linking.*python'
     then
-        apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+        echo "[*] vim with python support found"
     else
-        if [ -x "$(command -v sudo)" ]
+        echo "[*] no vim with python support found!"
+        echo "[*] installing vim and dependencys ..."
+        is_vim_install=1
+        if [[ "$OSTYPE" == "darwin"* ]]
         then
-            sudo apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+            echo "[!] Warning: darwin is not supported!"
+            return
+        fi
+        if [ "$UID" == "0" ]
+        then
+            apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
         else
-            echo "[!] Error: install sudo"
-            exit 1
+            if [ -x "$(command -v sudo)" ]
+            then
+                sudo apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+            else
+                echo "[!] Error: install sudo"
+                exit 1
+            fi
         fi
     fi
-fi
+}
 
 function check_dotfile_version() {
     local dotfile
@@ -173,21 +181,28 @@ function update_bashprofile() {
 
 function update_teeworlds() {
     local cwd
+    local twdir
     cwd="$(pwd)"
-    mkdir -p ~/.teeworlds
-    cd ~/.teeworlds || exit 1
+    if [[ "$OSTYPE" == "darwin"* ]]
+    then
+        twdir="/Users/$USER/Library/Application Support/Teeworlds"
+    else
+        twdir="/home/$USER/.teeworlds"
+    fi
+    mkdir -p "$twdir"
+    cd "$twdir" || exit 1
     if [ ! -d GitSettings/ ]
     then
         git clone git@github.com:ChillerTW/GitSettings.git
     fi
     cd GitSettings || exit 1
     git pull
-    cd ~/.teeworlds || exit 1
+    cd "$twdir" || exit 1
     if [ ! -d maps ]
     then
         git clone git@github.com:ChillerTW/GitMaps.git maps
     fi
-    cd ~/.teeworlds || exit 1
+    cd "$twdir" || exit 1
     if [ -f settings_zilly.cfg ]
     then
         echo "exec GitSettings/zilly.cfg" > settings_zilly.cfg
@@ -209,6 +224,8 @@ else
     echo "Stopped script."
     exit
 fi
+
+install_vim
 
 update_vim
 update_bash
