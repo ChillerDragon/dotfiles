@@ -1,4 +1,4 @@
-# version 0002
+# version 0003
 # ~/.bashrc: executed by bash(1) for non-login shells.
 # see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
 # for examples
@@ -149,6 +149,8 @@ then
     export PATH="$HOME/.rbenv/bin:$PATH"
     eval "$(rbenv init -)"
 fi
+
+export FDDR_ACC_PATH="$HOME/Desktop/git/FDDraceData/accounts"
 
 # go
 # TODO: use modern go path thingys
