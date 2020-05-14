@@ -54,7 +54,7 @@ echo "# sha1sums of the $repofile versions" > "$versionfile"
 echo "$sha1 0001" >> "$versionfile"
 
 # edit upgrade.sh (code generation)
-rcfile_escaped="$(echo "$rcfile" | sed 's/\//\\\//')"
+rcfile_escaped="$(echo "$rcfile" | sed 's/\//\\\//g')"
 read -rd '' selectcode << EOF
             \\"$name\\"\\)\\n                init_type $repofile $rcfile_escaped \\x27$comment\\x27\\n                break\\n                ;;\\n            \\"vim\\"\\)
 EOF
