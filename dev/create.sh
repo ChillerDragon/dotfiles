@@ -17,9 +17,9 @@ if [[ "$name" =~ rc$ ]]
 then
     name="${repofile::-2}"
 fi
-if [[ "$rcfile" =~ ^~ ]]
+if [[ "$rcfile" =~ ^~/ ]]
 then
-    rcfile="$HOME/${rcfile:1}"
+    rcfile="$HOME/${rcfile:2}"
 fi
 versionfile="${name}_versions.txt"
 
