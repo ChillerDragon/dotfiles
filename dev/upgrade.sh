@@ -62,6 +62,10 @@ function menu_types() {
                 init_type irbrc ~/.irbrc '#'
                 break
                 ;;
+            "bash_aliases")
+                init_type bash_aliases ~/.bash_aliases '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break

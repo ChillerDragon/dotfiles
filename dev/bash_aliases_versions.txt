@@ -1,0 +1,2 @@
+# sha1sums of the bash_aliases versions
+4ab89629d69b8f331bd87b70a748e99a88f1268c 0001

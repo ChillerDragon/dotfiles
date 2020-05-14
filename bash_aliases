@@ -1,0 +1,11 @@
+# version 0001
+alias start='xdg-open'
+alias zzh1='zzh 1'
+alias zzh2='zzh 2'
+alias zzh3='zzh 3'
+alias zzh4='zzh 4'
+alias zzh5='zzh 5'
+alias zzh6='zzh 6'
+alias zzh7='zzh 7'
+alias zzh8='zzh 8'
+alias zzh9='zzh 9'
