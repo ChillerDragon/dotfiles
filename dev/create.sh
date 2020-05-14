@@ -7,11 +7,16 @@ then
     exit 1
 fi
 
+echo "Create a copy from a config to the dotfiles repo"
 read -rp "repo file(vimrc): " repofile
 read -rp "rc path(~/.vimrc): " rcfile
 read -rp "$repofile comment(\"): " comment
 
-name="${repofile::-2}"
+name="$repofile"
+if [[ "$name" =~ rc$ ]]
+then
+    name="${repofile::-2}"
+fi
 versionfile="${name}_versions.txt"
 
 if [ -f "$versionfile" ]
@@ -19,11 +24,18 @@ then
     echo "Error: '$versionfile' already exists."
     exit 1
 fi
-if [ -f "$rcfile" ]
+if [ -f "../$repofile" ]
+then
+    echo "Error: '../$repofile' already exists."
+    exit 1
+fi
+if [ ! -f "$rcfile" ]
 then
     echo "Error: '$rcfile' config file not found."
     exit 1
 fi
+
+cp "$rcfile" "../$repofile"
 
 # header (rcfile)
 rc_body="$(cat ../"$repofile")"
