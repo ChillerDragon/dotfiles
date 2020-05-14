@@ -19,7 +19,7 @@ then
 fi
 if [[ "$rcfile" =~ ^~ ]]
 then
-    rcfile="$HOME${rcfile:1}"
+    rcfile="$HOME/${rcfile:1}"
 fi
 versionfile="${name}_versions.txt"
 
