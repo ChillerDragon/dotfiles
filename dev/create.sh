@@ -17,9 +17,10 @@ if [[ "$name" =~ rc$ ]]
 then
     name="${repofile::-2}"
 fi
+rcfile_abs="$rcfile"
 if [[ "$rcfile" =~ ^~/ ]]
 then
-    rcfile="$HOME/${rcfile:2}"
+    rcfile_abs="$HOME/${rcfile:2}"
 fi
 versionfile="${name}_versions.txt"
 
@@ -33,13 +34,13 @@ then
     echo "Error: '../$repofile' already exists."
     exit 1
 fi
-if [ ! -f "$rcfile" ]
+if [ ! -f "$rcfile_abs" ]
 then
-    echo "Error: '$rcfile' config file not found."
+    echo "Error: '$rcfile_abs' config file not found."
     exit 1
 fi
 
-cp "$rcfile" "../$repofile"
+cp "$rcfile_abs" "../$repofile"
 
 # header (rcfile)
 rc_body="$(cat ../"$repofile")"
