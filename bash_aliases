@@ -1,4 +1,4 @@
-# version 0001
+# version 0002
 alias start='xdg-open'
 alias zzh1='zzh 1'
 alias zzh2='zzh 2'
@@ -9,3 +9,4 @@ alias zzh6='zzh 6'
 alias zzh7='zzh 7'
 alias zzh8='zzh 8'
 alias zzh9='zzh 9'
+alias grep='grep --color=auto'

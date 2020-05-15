@@ -27,9 +27,13 @@ function init_type() {
         echo "Error: init_type() invalid number of arguments $#/3"
         exit 1
     fi
+    VERSION_FILE="${name}_versions.txt"
+    if [[ "$name" =~ rc$ ]]
+    then
+        VERSION_FILE="${name::-2}_versions.txt"
+    fi
     REPO_FILE="$name"
     RC_FILE="$path"
-    VERSION_FILE="${name::-2}_versions.txt"
     LOCAL_BAK="${RC_FILE}.bak"
     TMP_BAK="/tmp/${REPO_FILE}_$(date +%s).bak"
     COMMENT="$comment"
