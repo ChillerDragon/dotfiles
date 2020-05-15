@@ -63,6 +63,7 @@ cmd="sed 's/\"vim\"[)]/$selectcode/' upgrade.sh"
 echo "$cmd"
 eval "$cmd" > tmp_upgrade.sh
 mv tmp_upgrade.sh upgrade.sh
+chmod +x upgrade.sh
 
 # TODO: do this better
 # update version in actual used rc file
