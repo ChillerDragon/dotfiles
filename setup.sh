@@ -12,20 +12,35 @@ command -v sha1sum >/dev/null 2>&1 || {
     exit 1
 }
 
+function is_arch() {
+    if [ -f /etc/arch-release ] && uname -r | grep -q arch
+    then
+        return 0
+    fi
+    return 1
+}
+
 function install_tool() {
     local tool
+    local pckmn
     tool="$1"
     if [[ "$OSTYPE" == "darwin"* ]]
     then
         brew install "$tool"
     else
+        if is_arch
+        then
+            pckmn="pacman -Sy"
+        else
+            pckmn="apt install"
+        fi
         if [ "$UID" == "0" ]
         then
-            apt install "$tool"
+            eval "$pckmn $tool"
         else
             if [ -x "$(command -v sudo)" ]
             then
-                sudo apt install "$tool"
+                eval "sudo $pckmn $tool"
             else
                 echo "[!] Error: install sudo"
                 exit 1
@@ -35,7 +50,7 @@ function install_tool() {
 }
 
 function install_vim() {
-    if [ -x "$(command -v vim)" ] && vim --version | grep -q 'Linking.*python'
+    if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
     then
         echo "[*] vim with python support found"
     else
@@ -47,17 +62,11 @@ function install_vim() {
             echo "[!] Warning: darwin is not supported!"
             return
         fi
-        if [ "$UID" == "0" ]
+        if is_arch
         then
-            apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+            install_tool              git base-devel      cmake python3             ctags cscope shellcheck
         else
-            if [ -x "$(command -v sudo)" ]
-            then
-                sudo apt install vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
-            else
-                echo "[!] Error: install sudo"
-                exit 1
-            fi
+            install_tool vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
         fi
     fi
 }
