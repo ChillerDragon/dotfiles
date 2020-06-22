@@ -156,6 +156,18 @@ function update_bash() {
     cp bashrc "$rcpath" || exit 1
 }
 
+function update_bash_aliases() {
+    local rcpath
+    rcpath="$HOME/.bash_aliases"
+    if [ -f  "$rcpath" ]
+    then
+        check_dotfile_version bash_aliases bash_aliases "$rcpath"
+        return
+    fi
+    echo "[bash_aliases] updating..."
+    cp bash_aliases "$rcpath" || exit 1
+}
+
 function update_tmux() {
     local rcpath
     if [ ! -x "$(command -v tmux)" ]
@@ -184,7 +196,7 @@ function update_irb() {
     cp irbrc "$rcpath" || exit 1
 }
 
-function update_bashprofile() {
+function update_bash_profile() {
     echo "[bash_profile] has to be done manually."
 }
 
@@ -274,9 +286,10 @@ install_vim
 
 update_vim
 update_bash
+update_bash_aliases
+update_bash_profile
 update_tmux
 update_irb
-update_bashprofile
 update_teeworlds
 update_gitignore
 
