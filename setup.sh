@@ -122,7 +122,7 @@ function check_dotfile_version() {
         then
             echo "[$dotfile] outdated $dotfile version verified by sha1"
             echo "[$dotfile] updating..."
-            cp "$dotfile" "$dotfile_path"
+            cp "$dotfile_repo" "$dotfile_path"
         else
             echo "[$dotfile] WARNING: not updating $dotfile custom version found"
             echo "[$dotfile] sha1 missmatch '$hash_found' != '${aSha1s[v]}'"
@@ -238,7 +238,9 @@ function update_gitignore() {
     then
         echo "[gitignore] set global cfg to ~/.gitignore"
         git config --global core.excludesfile ~/.gitignore
-    elif [ "$global_gitignore" == "~/.gitignore" ] || [ "$global_gitignore" == "/home/$USER/.gitignore" ]
+    elif [ "$global_gitignore" == "~/.gitignore" ] || \
+        [ "$global_gitignore" == "/home/$USER/.gitignore" ] || \
+        [ "$global_gitignore" == "/Users/$USER/.gitignore" ]
     then
         echo "[gitignore] global path already set"
     else
