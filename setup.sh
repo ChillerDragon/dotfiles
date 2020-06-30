@@ -1,5 +1,10 @@
 #!/bin/bash
 
+Reset='\033[0m'
+Red='\033[0;31m'
+Green='\033[0;32m'
+Yellow='\033[0;33m'
+
 is_vim_install=0
 
 command -v sha1sum >/dev/null 2>&1 || {
@@ -52,14 +57,14 @@ function install_tool() {
 function install_vim() {
     if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
     then
-        echo "[*] vim with python support found"
+        echo "[vim] vim with python support found"
     else
-        echo "[*] no vim with python support found!"
-        echo "[*] installing vim and dependencys ..."
+        echo "[vim] no vim with python support found!"
+        echo "[vim] installing vim and dependencys ..."
         is_vim_install=1
         if [[ "$OSTYPE" == "darwin"* ]]
         then
-            echo "[!] Warning: darwin is not supported!"
+            echo "[vim] Warning: darwin is not supported!"
             return
         fi
         if is_arch
@@ -105,10 +110,11 @@ function check_dotfile_version() {
     hash_found=$(sha1sum "$dotfile_path" | cut -d " " -f1)
     version_found=$(head -n 1 "$dotfile_path" | cut -d " " -f3)
     version_latest="${aVersions[${#aVersions[@]}-1]}"
-    echo "[$dotfile] found $dotfile version=$version_found sha1=$hash_found"
+    printf "[$dotfile] found %s version='%s' ... " "$dotfile" "$version_found"
+    # printf "sha1=$hash_found ... "
     if [ "$version_found" == "$version_latest" ]
     then
-        echo "[$dotfile] already latest verson."
+        echo -e "already latest ${Green}OK${Reset}"
         return
     fi
     for v in "${!aVersions[@]}"
@@ -120,16 +126,16 @@ function check_dotfile_version() {
         # found version:
         if [ "$hash_found" == "${aSha1s[v]}" ]
         then
-            echo "[$dotfile] outdated $dotfile version verified by sha1"
+            echo -e "outdated (old sha1) ${Yellow}OUTDATED${Reset}"
             echo "[$dotfile] updating..."
             cp "$dotfile_repo" "$dotfile_path"
         else
-            echo "[$dotfile] WARNING: not updating $dotfile custom version found"
+            echo -e "failed to update custom version ${Red}ERROR${Reset}"
             echo "[$dotfile] sha1 missmatch '$hash_found' != '${aSha1s[v]}'"
         fi
         return
     done
-    echo "[$dotfile] WARNING: unkown version didn't update $dotfile"
+    echo -e "unkown version ${Red}ERROR${Reset}"
 }
 
 function update_rc_file() {
@@ -247,11 +253,16 @@ fi
 install_vim
 
 update_rc_file vim vimrc "$HOME/.vimrc"
-update_rc_file bash bashrc "$HOME/.bashrc"
-update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 update_rc_file irb irbrc "$HOME/.irbrc"
+update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 
-update_bash_profile
+if [[ "$OSTYPE" == "darwin"* ]]
+then
+    update_bash_profile
+else
+    update_rc_file bash bashrc "$HOME/.bashrc"
+fi
+
 update_tmux
 update_teeworlds
 update_gitignore
