@@ -132,68 +132,28 @@ function check_dotfile_version() {
     echo "[$dotfile] WARNING: unkown version didn't update $dotfile"
 }
 
-function update_vim() {
+function update_rc_file() {
+    local rcname
+    local rcrepo
     local rcpath
-    rcpath="$HOME/.vimrc"
+    rcname="$1"
+    rcrepo="$2"
+    rcpath="$3"
     if [ -f  "$rcpath" ]
     then
-        check_dotfile_version vim vimrc "$rcpath"
+        check_dotfile_version "$rcname" "$rcrepo" "$rcpath"
         return
     fi
-    echo "[vim] updating..."
-    cp vimrc "$rcpath" || exit 1
-}
-
-function update_bash() {
-    local rcpath
-    rcpath="$HOME/.bashrc"
-    if [ -f  "$rcpath" ]
-    then
-        check_dotfile_version bash bashrc "$rcpath"
-        return
-    fi
-    echo "[bash] updating..."
-    cp bashrc "$rcpath" || exit 1
-}
-
-function update_bash_aliases() {
-    local rcpath
-    rcpath="$HOME/.bash_aliases"
-    if [ -f  "$rcpath" ]
-    then
-        check_dotfile_version bash_aliases bash_aliases "$rcpath"
-        return
-    fi
-    echo "[bash_aliases] updating..."
-    cp bash_aliases "$rcpath" || exit 1
+    echo "[$rcname] updating..."
+    cp "$rcrepo" "$rcpath" || exit 1
 }
 
 function update_tmux() {
-    local rcpath
     if [ ! -x "$(command -v tmux)" ]
     then
         install_tool tmux
     fi
-    rcpath="$HOME/.tmux.conf"
-    if [ -f  "$rcpath" ]
-    then
-        check_dotfile_version tmux tmux.conf "$rcpath"
-        return
-    fi
-    echo "[tmux] updating..."
-    cp tmux.conf "$rcpath" || exit 1
-}
-
-function update_irb() {
-    local rcpath
-    rcpath="$HOME/.irbrc"
-    if [ -f  "$rcpath" ]
-    then
-        check_dotfile_version irb irbrc "$rcpath"
-        return
-    fi
-    echo "[irb] updating..."
-    cp irbrc "$rcpath" || exit 1
+    update_rc_file tmux tmux.conf "$HOME/.tmux.conf"
 }
 
 function update_bash_profile() {
@@ -286,12 +246,13 @@ fi
 
 install_vim
 
-update_vim
-update_bash
-update_bash_aliases
+update_rc_file vim vimrc "$HOME/.vimrc"
+update_rc_file bash bashrc "$HOME/.bashrc"
+update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
+update_rc_file irb irbrc "$HOME/.irbrc"
+
 update_bash_profile
 update_tmux
-update_irb
 update_teeworlds
 update_gitignore
 
