@@ -235,21 +235,6 @@ function update_gitignore() {
     fi
 }
 
-echo "Starting chiller configs setup script"
-echo "This script replaces config files without backups."
-echo "Data might be lost!"
-echo "Do you really want to execute it? [y/N]"
-read -rn 1 -p "" inp
-echo ""
-if [ "$inp" == "Y" ]; then
-    test
-elif [ "$inp" == "y" ]; then
-    test
-else
-    echo "Stopped script."
-    exit
-fi
-
 install_vim
 
 update_rc_file vim vimrc "$HOME/.vimrc"
