@@ -25,11 +25,19 @@ function is_arch() {
     return 1
 }
 
+function is_apple() {
+    if [[ "$OSTYPE" == "darwin"* ]]
+    then
+        return 0
+    fi
+    return 1
+}
+
 function install_tool() {
     local tool
     local pckmn
     tool="$1"
-    if [[ "$OSTYPE" == "darwin"* ]]
+    if is_apple
     then
         brew install "$tool"
     else
@@ -241,7 +249,7 @@ update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
 update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 
-if [[ "$OSTYPE" == "darwin"* ]]
+if is_apple
 then
     update_bash_profile
 else
