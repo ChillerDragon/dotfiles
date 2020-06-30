@@ -198,7 +198,7 @@ function update_gitignore() {
     then
         echo "[gitignore] set global cfg to ~/.gitignore"
         git config --global core.excludesfile ~/.gitignore
-    elif [ "$global_gitignore" == "~/.gitignore" ] || \
+    elif [ "$global_gitignore" == "$HOME/.gitignore" ] || \
         [ "$global_gitignore" == "/home/$USER/.gitignore" ] || \
         [ "$global_gitignore" == "/Users/$USER/.gitignore" ]
     then
