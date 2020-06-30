@@ -77,9 +77,16 @@ function install_vim() {
         fi
         if is_arch
         then
-            install_tool              git base-devel      cmake python3             ctags cscope shellcheck
+            install_tool \
+                git base-devel \
+                cmake python3 \
+                ctags cscope shellcheck
         else
-            install_tool vim-nox curl git build-essential cmake python3 python3-dev ctags cscope shellcheck
+            install_tool \
+                vim-nox curl \
+                git build-essential \
+                cmake python3 python3-dev \
+                ctags cscope shellcheck
         fi
     fi
 }
