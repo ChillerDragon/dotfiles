@@ -63,30 +63,37 @@ function install_tool() {
 }
 
 function install_vim() {
+    if [ -d ~/.vim/plugged/YouCompleteMe ] && [ -d ~/.vim/plugged/vim-gutentags ]
+    then
+        return
+    fi
+    is_vim_install=1
+    if is_arch
+    then
+        install_tool \
+            git base-devel \
+            cmake python3 \
+            ctags cscope shellcheck
+    else
+        install_tool \
+            vim-nox curl \
+            git build-essential \
+            cmake python3 python3-dev \
+            ctags cscope shellcheck
+    fi
     if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
     then
-        echo "[vim] vim with python support found"
+        echo "[vim] vim with python support found ... ${Green}OK${Reset}"
     else
-        echo "[vim] no vim with python support found!"
-        echo "[vim] installing vim and dependencys ..."
-        is_vim_install=1
-        if [[ "$OSTYPE" == "darwin"* ]]
+        echo "[vim] no vim with python support found! -> installing"
+        if is_apple
         then
-            echo "[vim] Warning: darwin is not supported!"
-            return
-        fi
-        if is_arch
+            install_tool vim
+        elif is_arch
         then
-            install_tool \
-                git base-devel \
-                cmake python3 \
-                ctags cscope shellcheck
+            echo "[vim] ${Yellow}Warning${Reset}: arch is not supported!"
         else
-            install_tool \
-                vim-nox curl \
-                git build-essential \
-                cmake python3 python3-dev \
-                ctags cscope shellcheck
+            install_tool vim-nox
         fi
     fi
 }
