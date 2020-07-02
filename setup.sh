@@ -256,6 +256,14 @@ function update_gitconfig() {
             } >> ~/.gitignore
         fi
     fi
+    if ! grep -q 'customers' ~/.gitconfig
+    then
+        echo "[gitconfig] adding work config"
+        {
+            echo '[includeIf "gitdir:~/Desktop/customers/"]'
+            printf "\\tpath = .gitconfig-work\\n"
+        } >> ~/.gitconfig
+    fi
     git config --global core.editor vim
 }
 
