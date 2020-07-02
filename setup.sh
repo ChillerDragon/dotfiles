@@ -220,7 +220,7 @@ function update_teeworlds() {
     cd "$cwd" || exit 1
 }
 
-function update_gitignore() {
+function update_gitconfig() {
     local global_gitignore
     global_gitignore="$(git config --global core.excludesfile)"
     if [ "$global_gitignore" == "" ]
@@ -256,6 +256,7 @@ function update_gitignore() {
             } >> ~/.gitignore
         fi
     fi
+    git config --global core.editor vim
 }
 
 install_vim
@@ -273,7 +274,7 @@ fi
 
 update_tmux
 update_teeworlds
-update_gitignore
+update_gitconfig
 
 if [ "$is_vim_install" == "1" ]
 then
