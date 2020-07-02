@@ -1,0 +1,13 @@
+# version 0001
+# for IdentitiesOnly yes see:
+# https://stackoverflow.com/a/11251797
+Host github.com
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/id_rsa
+    IdentitiesOnly yes
+Host github-WORK
+    HostName github.com
+    User git
+    IdentityFile ~/.ssh/work_rsa
+    IdentitiesOnly yes

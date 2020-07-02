@@ -70,6 +70,10 @@ function menu_types() {
                 init_type bash_aliases ~/.bash_aliases '#'
                 break
                 ;;
+            "ssh_config")
+                init_type ssh_config ~/.ssh/config '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break

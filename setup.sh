@@ -272,6 +272,16 @@ install_vim
 update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
 update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
+if [ ! -d ~/.ssh ]
+then
+    echo -e "[ssh_config] ${Red}ERROR${Reset}: ~/.ssh not found run ssh-keygen first"
+else
+    if [ ! -f ~/.ssh/work_rsa ]
+    then
+        echo -e "[ssh_config] ${Yellow}WARNING${Reset}: ~/.ssh/work_rsa not found"
+    fi
+    update_rc_file ssh_config ssh_config "$HOME/.ssh/config"
+fi
 
 if is_apple
 then
