@@ -71,6 +71,7 @@ function install_vim() {
     if is_arch
     then
         install_tool \
+            figlet \
             git base-devel \
             cmake python3 \
             ctags cscope shellcheck
@@ -212,7 +213,7 @@ function update_teeworlds() {
         git clone git@github.com:ChillerTW/GitMaps.git maps
     fi
     cd "$twdir" || exit 1
-    if [ -f settings_zilly.cfg ]
+    if [ ! -f settings_zilly.cfg ]
     then
         echo "exec GitSettings/zilly.cfg" > settings_zilly.cfg
     fi
