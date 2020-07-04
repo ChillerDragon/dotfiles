@@ -220,6 +220,17 @@ function update_teeworlds() {
     cd "$cwd" || exit 1
 }
 
+function install_pictures() {
+    mkdir -p ~/Pictures
+    if [ "$(ls -A ~/Pictures)" ]
+    then
+        return
+    fi
+    echo "[pictures] downloading ~/Pictures ..."
+    rm -r ~/Pictures
+    git clone git@github.com:ChillerData/Pictures ~/Pictures
+}
+
 function update_gitconfig() {
     local global_gitignore
     global_gitignore="$(git config --global core.excludesfile)"
@@ -268,6 +279,7 @@ function update_gitconfig() {
 }
 
 install_vim
+install_pictures
 
 update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
