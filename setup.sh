@@ -311,7 +311,7 @@ update_gitconfig
 
 if [ "$is_vim_install" == "1" ]
 then
-    vim
+    vim -c 'PlugInstall | quit | quit' || exit 1
     cwd="$(pwd)"
     cd ~/.vim/plugged/YouCompleteMe || exit 1
     python3 install.py
