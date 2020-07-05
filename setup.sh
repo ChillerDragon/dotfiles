@@ -232,14 +232,14 @@ function update_teeworlds() {
 }
 
 function install_pictures() {
-    mkdir -p ~/Pictures
-    if [ "$(ls -A ~/Pictures)" ]
-    then
-        return
-    fi
     if [ "$USER" != "chiller" ]
     then
         echo "[pictures] skipping for non 'chiller' users ..."
+        return
+    fi
+    mkdir -p ~/Pictures
+    if [ "$(ls -A ~/Pictures)" ]
+    then
         return
     fi
     echo "[pictures] downloading ~/Pictures ..."
