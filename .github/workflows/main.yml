@@ -1,0 +1,30 @@
+name: Main
+
+on: [push, pull_request]
+
+jobs:
+  build-cmake:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macOS-latest, ubuntu-16.04]
+    steps:
+    - uses: actions/checkout@v2
+    - name: Shellcheck shell scripts
+      if: contains(matrix.os, 'ubuntu')
+      shell: bash
+      run: |
+        sudo apt-get update -y
+        sudo apt-get install shellcheck -y
+        shellcheck setup.sh
+        shellcheck dev/*.sh
+    - name: Setup on Linux
+      if: contains(matrix.os, 'ubuntu')
+      run: |
+        sudo apt-get update -y
+        # ./setup.sh # TODO:
+    - name: Setup on MacOS
+      if: contains(matrix.os, 'macOS')
+      run: |
+        brew update
+        # ./setup.sh # TODO:
