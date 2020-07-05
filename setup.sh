@@ -43,9 +43,11 @@ function install_tool() {
     else
         if is_arch
         then
+            # I do not feel pro enough in arch yet to do this
+            # pckmn="pacman -Sy --noconfirm"
             pckmn="pacman -Sy"
         else
-            pckmn="apt install"
+            pckmn="apt install -y"
         fi
         if [ "$UID" == "0" ]
         then
