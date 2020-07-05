@@ -78,9 +78,17 @@ function install_vim() {
             git base-devel \
             cmake python3 \
             ctags cscope shellcheck
-    else
+    elif is_apple
+    then
         install_tool \
-            vim-nox curl \
+            figlet \
+            git \
+            cmake \
+            ctags cscope shellcheck
+    else # debian
+        install_tool \
+            figlet \
+            curl \
             git build-essential \
             cmake python3 python3-dev \
             ctags cscope shellcheck
@@ -282,10 +290,14 @@ function update_gitconfig() {
 }
 
 github='git@github.com:'
+if [ ! -f ~/.ssh/id_rsa.pub ]
+then
+    echo -e "[ssh] ${Yellow}WARNING${Reset}: no ~/.ssh/id_rsa.pub found using https for git"
+    github='https://github.com/'
+fi
 if [ ! -d ~/.ssh ]
 then
     echo -e "[ssh_config] ${Red}ERROR${Reset}: ~/.ssh not found run ssh-keygen first"
-    github='https://github.com/'
 else
     if [ ! -f ~/.ssh/work_rsa ]
     then
