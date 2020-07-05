@@ -237,6 +237,11 @@ function install_pictures() {
     then
         return
     fi
+    if [ "$USER" != "chiller" ]
+    then
+        echo "[pictures] skipping for non 'chiller' users ..."
+        return
+    fi
     echo "[pictures] downloading ~/Pictures ..."
     rm -r ~/Pictures
     git clone "${github}ChillerData/Pictures" ~/Pictures
