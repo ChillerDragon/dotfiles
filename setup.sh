@@ -203,14 +203,14 @@ function update_teeworlds() {
     cd "$twdir" || exit 1
     if [ ! -d GitSettings/ ]
     then
-        git clone git@github.com:ChillerTW/GitSettings.git
+        git clone "${github}ChillerTW/GitSettings"
     fi
     cd GitSettings || exit 1
     git pull
     cd "$twdir" || exit 1
     if [ ! -d maps ]
     then
-        git clone git@github.com:ChillerTW/GitMaps.git maps
+        git clone "${github}ChillerTW/GitMaps" maps
     fi
     cd "$twdir" || exit 1
     if [ ! -f settings_zilly.cfg ]
@@ -228,7 +228,7 @@ function install_pictures() {
     fi
     echo "[pictures] downloading ~/Pictures ..."
     rm -r ~/Pictures
-    git clone git@github.com:ChillerData/Pictures ~/Pictures
+    git clone "${github}ChillerData/Pictures" ~/Pictures
 }
 
 function update_gitconfig() {
@@ -278,15 +278,11 @@ function update_gitconfig() {
     git config --global core.editor vim
 }
 
-install_vim
-install_pictures
-
-update_rc_file vim vimrc "$HOME/.vimrc"
-update_rc_file irb irbrc "$HOME/.irbrc"
-update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
+github='git@github.com:'
 if [ ! -d ~/.ssh ]
 then
     echo -e "[ssh_config] ${Red}ERROR${Reset}: ~/.ssh not found run ssh-keygen first"
+    github='https://github.com/'
 else
     if [ ! -f ~/.ssh/work_rsa ]
     then
@@ -294,6 +290,13 @@ else
     fi
     update_rc_file ssh_config ssh_config "$HOME/.ssh/config"
 fi
+
+install_vim
+install_pictures
+
+update_rc_file vim vimrc "$HOME/.vimrc"
+update_rc_file irb irbrc "$HOME/.irbrc"
+update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 
 if is_apple
 then
