@@ -7,16 +7,6 @@ Yellow='\033[0;33m'
 
 is_vim_install=0
 
-command -v sha1sum >/dev/null 2>&1 || {
-    echo "Error: command sha1sum not found"
-    # should be installed on linux
-    if [[ "$OSTYPE" == "darwin"* ]]
-    then
-        echo "brew install md5sha1sum"
-    fi
-    exit 1
-}
-
 function is_arch() {
     if [ -f /etc/arch-release ] && uname -r | grep -q arch
     then
@@ -31,6 +21,17 @@ function is_apple() {
         return 0
     fi
     return 1
+}
+
+command -v sha1sum >/dev/null 2>&1 || {
+    # should be installed on linux
+    if is_apple
+    then
+        brew install md5sha1sum
+    else
+        echo "Error: command sha1sum not found"
+        exit 1
+    fi
 }
 
 function install_tool() {
@@ -195,7 +196,7 @@ function update_teeworlds() {
     local cwd
     local twdir
     cwd="$(pwd)"
-    if [[ "$OSTYPE" == "darwin"* ]]
+    if is_apple
     then
         twdir="/Users/$USER/Library/Application Support/Teeworlds"
     else
