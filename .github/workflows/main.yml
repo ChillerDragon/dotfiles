@@ -15,7 +15,7 @@ jobs:
         sudo apt-get install shellcheck -y
         shellcheck setup.sh
         shellcheck dev/*.sh
-  run-setup.sh:
+  run-setup-sh:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
