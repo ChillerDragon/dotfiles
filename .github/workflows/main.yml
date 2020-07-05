@@ -22,9 +22,10 @@ jobs:
       if: contains(matrix.os, 'ubuntu')
       run: |
         sudo apt-get update -y
-        # ./setup.sh # TODO:
+        ./setup.sh
     - name: Setup on MacOS
       if: contains(matrix.os, 'macOS')
       run: |
         brew update
-        # ./setup.sh # TODO:
+        ./setup.sh
+
