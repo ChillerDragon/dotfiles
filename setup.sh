@@ -204,6 +204,11 @@ function update_teeworlds() {
     local cwd
     local twdir
     cwd="$(pwd)"
+    if [ "$UID" == "0" ]
+    then
+        echo "[teeworlds] skpping on root user ..."
+        return
+    fi
     if is_apple
     then
         twdir="/Users/$USER/Library/Application Support/Teeworlds"
@@ -235,6 +240,11 @@ function install_pictures() {
     if [ "$USER" != "chiller" ]
     then
         echo "[pictures] skipping for non 'chiller' users ..."
+        return
+    fi
+    if [ "$UID" == "0" ]
+    then
+        echo "[teeworlds] skpping on root user ..."
         return
     fi
     mkdir -p ~/Pictures
