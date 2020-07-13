@@ -37,7 +37,7 @@ command -v sha1sum >/dev/null 2>&1 || {
 function install_tool() {
     local tool
     local pckmn
-    tool="$1"
+    tool="$*"
     if is_apple
     then
         brew install "$tool"
