@@ -1,4 +1,4 @@
-" version 0028
+" version 0029
 " put these lines in ~/.vimrc
 
 " Basics
@@ -148,6 +148,7 @@ autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
 autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
+autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
 " echo "filename '"filename"'"
 if filename =~ "^/"
     " echo "absolute"
