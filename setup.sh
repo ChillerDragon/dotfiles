@@ -100,12 +100,9 @@ function install_vim() {
         echo "[vim] vim with python support found ... ${Green}OK${Reset}"
     else
         echo "[vim] no vim with python support found! -> installing"
-        if is_apple
+        if is_apple || is_arch
         then
             install_tool vim
-        elif is_arch
-        then
-            echo "[vim] ${Yellow}Warning${Reset}: arch is not supported!"
         else
             install_tool vim-nox
         fi
