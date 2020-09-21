@@ -1,2 +1,3 @@
 # sha1sums of the ssh_config versions
 23273b2a9ec0fe520850ce8ffabf793dc1c7bad2 0001
+0a971bfee3b17b44fac45f4567d9e0e9d3138222 0002
