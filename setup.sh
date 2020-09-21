@@ -297,13 +297,30 @@ function update_gitconfig() {
     fi
     if ! grep -q 'customers' ~/.gitconfig
     then
-        echo "[gitconfig] adding work config"
+        echo "[gitconfig] linking work config"
         {
             echo '[includeIf "gitdir:~/Desktop/customers/"]'
             printf "\\tpath = .gitconfig-work\\n"
         } >> ~/.gitconfig
     fi
+    if ! grep -q 'git-zilly' ~/.gitconfig
+    then
+        echo "[gitconfig] linking ZillyHuhn config"
+        {
+            echo '[includeIf "gitdir:~/Desktop/git-zilly/"]'
+            printf "\\tpath = .gitconfig-zilly\\n"
+        } >> ~/.gitconfig
+    fi
     git config --global core.editor vim
+    if [ ! -f ~/.gitconfig-zilly ]
+    then
+        echo "[gitconfig] writing ZillyHuhn config"
+        {
+            echo "[user]"
+            printf "\\temail = ZillyHuhn@gmail.com\\n"
+            printf "\\tname = ZillyHuhn\\n"
+        } > ~/.gitconfig-zilly
+    fi
 }
 
 github='git@github.com:'
