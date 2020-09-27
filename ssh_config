@@ -1,4 +1,4 @@
-# version 0002
+# version 0003
 # for IdentitiesOnly yes see:
 # https://stackoverflow.com/a/11251797
 Host github.com
@@ -16,3 +16,6 @@ Host github-ZillyHuhn
     User git
     IdentityFile ~/.ssh/ZillyHuhn/id_rsa
     IdentitiesOnly yes
+Host aur.archlinux.org
+    IdentityFile ~/.ssh/chiller@debian/id_rsa
+    User aur
