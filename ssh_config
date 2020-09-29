@@ -1,6 +1,9 @@
-# version 0004
+# version 0005
 # for IdentitiesOnly yes see:
 # https://stackoverflow.com/a/11251797
+
+Include config.d/*
+
 Host github.com
     HostName github.com
     User git
@@ -19,5 +22,3 @@ Host github-ZillyHuhn
 Host aur.archlinux.org
     IdentityFile ~/.ssh/chiller@debian/id_rsa
     User aur
-
-Include config.d/*
