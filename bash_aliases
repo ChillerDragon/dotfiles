@@ -1,4 +1,5 @@
-# version 0003
+# version 0004
+alias serve='echo "http://localhost:9090" && ruby -run -e httpd . -p 9090'
 alias start='xdg-open'
 alias mmh='zzh --mosh'
 alias grep='grep --color=auto'
