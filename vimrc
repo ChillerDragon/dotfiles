@@ -1,4 +1,4 @@
-" version 0029
+" version 0030
 " put these lines in ~/.vimrc
 
 " Basics
@@ -39,6 +39,9 @@ set viminfo='20,<1000,s1000
 " thanks to @jonbho (twitter)
 nnoremap <esc> :noh<return><esc>
 nnoremap <esc>^[ <esc>^[
+
+" yeet yank to clixxboard
+nnoremap <C-y> :call system("xclip -selection clipboard", @")<return>
 
 " https://stackoverflow.com/a/28117335
 " Set the filetype based on the file's extension, but only if
@@ -238,3 +241,5 @@ Plug 'ycm-core/YouCompleteMe'
 " python3 install.py --clang-completer
 
 call plug#end()
+
+set runtimepath^=~/.vim/bundle/ctrlp.vim
