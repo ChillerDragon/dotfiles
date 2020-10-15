@@ -31,6 +31,9 @@ function init_type() {
     if [[ "$name" =~ rc$ ]]
     then
         VERSION_FILE="${name::-2}_versions.txt"
+    elif [[ "$name" =~ conf$ ]]
+    then
+        VERSION_FILE="${name::-5}_versions.txt"
     fi
     REPO_FILE="$name"
     RC_FILE="$path"
