@@ -1,4 +1,4 @@
-" version 0030
+" version 0031
 " put these lines in ~/.vimrc
 
 " Basics
@@ -241,5 +241,3 @@ Plug 'ycm-core/YouCompleteMe'
 " python3 install.py --clang-completer
 
 call plug#end()
-
-set runtimepath^=~/.vim/bundle/ctrlp.vim
