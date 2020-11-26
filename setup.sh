@@ -229,7 +229,10 @@ function update_teeworlds() {
         git clone --recursive "${github}ChillerTW/GitMaps" maps
     else
         cd maps || exit 1
-        git pull
+        if [ -d .git ]
+        then
+            git pull
+        fi
     fi
     cd "$twdir" || exit 1
     if [ ! -f settings_zilly.cfg ]
