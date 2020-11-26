@@ -65,6 +65,10 @@ function menu_types() {
                 init_type tmux.conf ~/.tmux.conf '#'
                 break
                 ;;
+            "tmux-remote")
+                init_type tmux.remote.conf ~/.tmux.remote.conf '#'
+                break
+                ;;
             "irb")
                 init_type irbrc ~/.irbrc '#'
                 break

@@ -1,0 +1,2 @@
+# sha1sums of the tmux.remote.conf versions
+f0567600032cf306643a6baad80deb50ffb39f72 0001

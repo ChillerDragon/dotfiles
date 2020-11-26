@@ -193,6 +193,7 @@ function update_tmux() {
         install_tool tmux
     fi
     update_rc_file tmux tmux.conf "$HOME/.tmux.conf"
+    update_rc_file tmux-remote tmux.remote.conf "$HOME/.tmux.remote.conf"
 }
 
 function update_bash_profile() {
