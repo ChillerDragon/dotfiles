@@ -248,9 +248,14 @@ function install_pictures() {
         echo "[pictures] skipping for non 'chiller' users ..."
         return
     fi
+    if [ -n "$SSH_CLIENT" ]
+    then
+        echo "[pictures] skipping for remote sessions ..."
+        return
+    fi
     if [ "$UID" == "0" ]
     then
-        echo "[teeworlds] skpping on root user ..."
+        echo "[pictures] skpping on root user ..."
         return
     fi
     mkdir -p ~/Pictures
