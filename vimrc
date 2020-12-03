@@ -1,4 +1,4 @@
-" version 0031
+" version 0032
 " put these lines in ~/.vimrc
 
 " Basics
@@ -14,6 +14,9 @@ set expandtab
 
 let mapleader = ","
 let filename = expand("%")
+
+" no physical line wrapping when too long
+set textwidth=0 wrapmargin=0
 
 " chiller hax to repare delete key
 set backspace=indent,eol,start
