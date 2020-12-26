@@ -1,4 +1,4 @@
-" version 0032
+" version 0033
 " put these lines in ~/.vimrc
 
 " Basics
@@ -58,6 +58,21 @@ if has("unix")
         let c_dbg = "lldb"
     endif
 endif
+
+" Status
+"-----------------------------------------------------------------------------
+
+function! ShowFuncName()
+  let lnum = line(".")
+  let col = col(".")
+  echohl ModeMsg
+  echo getline(search("^[^ \t#/]\\{2}.*[^:]\s*$", 'bW'))
+  echohl None
+  call search("\\%" . lnum . "l" . "\\%" . col . "c")
+endfun
+
+" press ,f to show current function
+map ,f :call ShowFuncName() <CR>
 
 " Backups, undos, and swap files
 "-----------------------------------------------------------------------------
