@@ -1,4 +1,4 @@
-" version 0033
+" version 0034
 " put these lines in ~/.vimrc
 
 " Basics
@@ -17,6 +17,12 @@ let filename = expand("%")
 
 " no physical line wrapping when too long
 set textwidth=0 wrapmargin=0
+
+" :help fo-table
+" t 	Auto-wrap text using textwidth
+"
+" removes option t to avoid linebreaks
+set formatoptions-=t
 
 " chiller hax to repare delete key
 set backspace=indent,eol,start
