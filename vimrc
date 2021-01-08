@@ -1,4 +1,4 @@
-" version 0034
+" version 0035
 " put these lines in ~/.vimrc
 
 " Basics
@@ -171,6 +171,7 @@ cmap w!! w !sudo tee > /dev/null %
 " https://stackoverflow.com/a/18296266
 " thanks to FDinoff
 autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
+autocmd filetype javascript nnoremap <F4> :w <bar> exec '!node '.shellescape('%')<CR>
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
 autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
