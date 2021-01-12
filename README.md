@@ -19,3 +19,10 @@ deb-src http://deb.debian.org/debian buster main contrib non-free
 deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
 deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
 ```
+
+# gnome settings
+
+I use default mouse speed:
+```
+gsettings set org.gnome.desktop.peripherals.mouse speed 0.0
+```
