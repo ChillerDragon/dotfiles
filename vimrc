@@ -1,4 +1,4 @@
-" version 0035
+" version 0036
 " put these lines in ~/.vimrc
 
 " Basics
@@ -259,7 +259,12 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
-Plug 'ycm-core/YouCompleteMe'
+if has('patch-8.1.2269')
+    Plug 'ycm-core/YouCompleteMe'
+else
+    set encoding=utf-8
+    Plug 'ycm-core/YouCompleteMe', { 'commit':'d98f896' }
+end
 " TODO: automate this
 " from https://github.com/ycm-core/YouCompleteMe#installation
 " cd ~/.vim/plugged/YouCompleteMe
