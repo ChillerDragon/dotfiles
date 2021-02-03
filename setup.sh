@@ -304,6 +304,16 @@ function update_gitconfig() {
             } >> ~/.gitignore
         fi
     fi
+    git config --global core.editor vim
+    git config --global pull.rebase true
+    if ! git config user.name > /dev/null
+    then
+        git config --global user.name "ChillerDragon"
+    fi
+    if ! git config user.email > /dev/null
+    then
+        git config --global user.email "ChillerDragon@gmail.com"
+    fi
     if ! grep -q 'customers' ~/.gitconfig
     then
         echo "[gitconfig] linking work config"
@@ -320,7 +330,6 @@ function update_gitconfig() {
             printf "\\tpath = .gitconfig-zilly\\n"
         } >> ~/.gitconfig
     fi
-    git config --global core.editor vim
     if [ ! -f ~/.gitconfig-zilly ]
     then
         echo "[gitconfig] writing ZillyHuhn config"
