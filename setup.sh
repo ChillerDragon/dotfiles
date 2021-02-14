@@ -314,6 +314,10 @@ function update_gitconfig() {
     then
         git config --global user.email "ChillerDragon@gmail.com"
     fi
+    if ! git config --global init.defaultBranch
+    then
+        git config --global init.defaultBranch master
+    fi
     if ! grep -q 'customers' ~/.gitconfig
     then
         echo "[gitconfig] linking work config"
