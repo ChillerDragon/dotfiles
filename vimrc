@@ -1,4 +1,4 @@
-" version 0036
+" version 0037
 " put these lines in ~/.vimrc
 
 " Basics
@@ -7,10 +7,11 @@ syntax on
 set relativenumber
 set number
 
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
+" use tabs instead of 4 spaces
+" set tabstop=4
+" set shiftwidth=4
+" set softtabstop=4
+" set expandtab
 
 let mapleader = ","
 let filename = expand("%")
