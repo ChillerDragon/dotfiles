@@ -4,23 +4,23 @@ A repo holding all my personal configurations I use.
 Feel free to copy my configs but this repo is designed for me and private use.
 So don't expect anything from it.
 
-# setup
+## bashrc
+
+.bashrc has its own repository at: https://github.com/ChillerDragon/bashrc.d
+
+But it is designed to be automatically installed when installing crools:
+
+
+https://github.com/ChillerDragon/crools
+
+
+## setup
 
 to automatically update all configs execute:
 ``./setup.sh``
 
-# debian /etc/apt/sources.list
 
-```
-# debian 10
-deb http://deb.debian.org/debian buster main contrib non-free
-deb-src http://deb.debian.org/debian buster main contrib non-free
-
-deb http://deb.debian.org/debian-security/ buster/updates main contrib non-free
-deb-src http://deb.debian.org/debian-security/ buster/updates main contrib non-free
-```
-
-# gnome settings
+## gnome settings
 
 I use default mouse speed:
 ```
