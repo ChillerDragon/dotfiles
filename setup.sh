@@ -381,8 +381,6 @@ update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 if is_apple
 then
     update_bash_profile
-else
-    update_rc_file bash bashrc "$HOME/.bashrc"
 fi
 
 update_tmux

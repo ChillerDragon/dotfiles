@@ -57,10 +57,6 @@ function menu_types() {
     select opt in "${aRCFILES[@]}"
     do
         case $opt in
-            "bash")
-                init_type bashrc ~/.bashrc '#'
-                break
-                ;;
             "tmux")
                 init_type tmux.conf ~/.tmux.conf '#'
                 break
