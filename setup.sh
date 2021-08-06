@@ -188,12 +188,21 @@ function update_rc_file() {
 }
 
 function update_tmux() {
-    if [ ! -x "$(command -v tmux)" ]
-    then
-        install_tool tmux
-    fi
-    update_rc_file tmux tmux.conf "$HOME/.tmux.conf"
-    update_rc_file tmux-remote tmux.remote.conf "$HOME/.tmux.remote.conf"
+	if [ ! -x "$(command -v tmux)" ]
+	then
+		install_tool tmux
+	fi
+	if [ -d ~/.tmux/plugins/tpm ]
+	then
+		(
+			cd ~/.tmux/plugins/tpm || { echo "Error: failed to cd into tmp!"; exit 1; }
+			git pull
+		)
+	else
+		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+	fi
+	update_rc_file tmux tmux.conf "$HOME/.tmux.conf"
+	update_rc_file tmux-remote tmux.remote.conf "$HOME/.tmux.remote.conf"
 }
 
 function update_bash_profile() {
