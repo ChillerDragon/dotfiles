@@ -210,45 +210,58 @@ function update_bash_profile() {
 }
 
 function update_teeworlds() {
-    local cwd
-    local twdir
-    cwd="$(pwd)"
-    if [ "$UID" == "0" ]
-    then
-        echo "[teeworlds] skpping on root user ..."
-        return
-    fi
-    if is_apple
-    then
-        twdir="/Users/$USER/Library/Application Support/Teeworlds"
-    else
-        twdir="/home/$USER/.teeworlds"
-    fi
-    mkdir -p "$twdir"
-    cd "$twdir" || exit 1
-    if [ ! -d GitSettings/ ]
-    then
-        git clone "${github}ChillerTW/GitSettings"
-    fi
-    cd GitSettings || exit 1
-    git pull
-    cd "$twdir" || exit 1
-    if [ ! -d maps ]
-    then
-        git clone --recursive "${github}ChillerTW/GitMaps" maps
-    else
-        cd maps || exit 1
-        if [ -d .git ]
-        then
-            git pull
-        fi
-    fi
-    cd "$twdir" || exit 1
-    if [ ! -f settings_zilly.cfg ]
-    then
-        echo "exec GitSettings/zilly.cfg" > settings_zilly.cfg
-    fi
-    cd "$cwd" || exit 1
+	local cwd
+	local twdir
+	cwd="$(pwd)"
+	if [ "$UID" == "0" ]
+	then
+		echo "[teeworlds] skpping on root user ..."
+		return
+	fi
+	if is_apple
+	then
+		twdir="/Users/$USER/Library/Application Support/Teeworlds"
+	else
+		twdir="/home/$USER/.teeworlds"
+	fi
+	mkdir -p "$twdir"
+	cd "$twdir" || exit 1
+	if [ ! -d GitSettings/ ]
+	then
+		git clone "${github}ChillerTW/GitSettings"
+	fi
+	cd GitSettings || exit 1
+	git pull
+	cd "$twdir" || exit 1
+	if [ ! -d maps ]
+	then
+		git clone --recursive "${github}ChillerTW/GitMaps" maps
+	else
+		cd maps || exit 1
+		if [ -d .git ]
+		then
+			git pull
+		fi
+	fi
+	cd "$twdir" || exit 1
+	if [ ! -f settings_zilly.cfg ]
+	then
+		echo "exec GitSettings/zilly.cfg" > settings_zilly.cfg
+	fi
+	mkdir -p chillerbot
+	cd chillerbot || exit 1
+	if [ ! -d cbs ]
+	then
+		git clone "${github}chillerbot/chillerbot-scripts" cbs
+	elif [ ! -d cbs/.git ] && [ "$(ls cbs)" == "" ]
+	then
+		rm -rf cbs
+		git clone "${github}chillerbot/chillerbot-scripts" cbs
+	else
+		cd cbs || exit 1
+		git pull
+	fi
+	cd "$cwd" || exit 1
 }
 
 function install_pictures() {
