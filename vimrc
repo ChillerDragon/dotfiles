@@ -1,4 +1,4 @@
-" version 0038
+" version 0039
 " put these lines in ~/.vimrc
 
 " Basics
@@ -218,6 +218,7 @@ if executable('figlet') " if figlet is installed add a nice banner :)
     autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
     autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
     autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
+    autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')<CR>
     if executable('jq')
         autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
     endif
@@ -226,6 +227,7 @@ else
     autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
     autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
     autocmd filetype lua nnoremap <leader>rt :exec '!luacheck '.shellescape('%')<CR>
+    autocmd filetype python nnoremap <leader>rt :exec '!pylint '.shellescape('%')<CR>
     if executable('jq')
         autocmd filetype json nnoremap <leader>rt :exec '!cat '.shellescape('%')' \| jq'<CR>
     endif
