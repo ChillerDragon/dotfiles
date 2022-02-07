@@ -86,13 +86,14 @@ function install_vim() {
 			cmake \
 			ctags cscope shellcheck
 	else # debian
+		install_tool ctags || install_tool universal-ctags
 		install_tool \
 			luarocks \
 			figlet \
 			curl \
 			git build-essential \
 			cmake python3 python3-dev \
-			ctags cscope shellcheck
+			cscope shellcheck
 		luarocks install luacheck --user
 	fi
 	if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
