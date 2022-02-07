@@ -66,47 +66,47 @@ function install_tool() {
 }
 
 function install_vim() {
-    if [ -d ~/.vim/plugged/YouCompleteMe ] && [ -d ~/.vim/plugged/vim-gutentags ]
-    then
-        return
-    fi
-    is_vim_install=1
-    if is_arch
-    then
-        install_tool \
-            figlet \
-            git base-devel \
-            cmake python3 \
-            ctags cscope shellcheck
-    elif is_apple
-    then
-        install_tool \
-            figlet \
-            git \
-            cmake \
-            ctags cscope shellcheck
-    else # debian
-        install_tool \
-            luarocks \
-            figlet \
-            curl \
-            git build-essential \
-            cmake python3 python3-dev \
-            ctags cscope shellcheck
-        luarocks install luacheck --user
-    fi
-    if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
-    then
-        echo "[vim] vim with python support found ... ${Green}OK${Reset}"
-    else
-        echo "[vim] no vim with python support found! -> installing"
-        if is_apple || is_arch
-        then
-            install_tool vim
-        else
-            install_tool vim-nox
-        fi
-    fi
+	if [ -d ~/.vim/plugged/YouCompleteMe ] && [ -d ~/.vim/plugged/vim-gutentags ]
+	then
+		return
+	fi
+	is_vim_install=1
+	if is_arch
+	then
+		install_tool \
+			figlet \
+			git base-devel \
+			cmake python3 \
+			ctags cscope shellcheck
+	elif is_apple
+	then
+		install_tool \
+			figlet \
+			git \
+			cmake \
+			ctags cscope shellcheck
+	else # debian
+		install_tool \
+			luarocks \
+			figlet \
+			curl \
+			git build-essential \
+			cmake python3 python3-dev \
+			ctags cscope shellcheck
+		luarocks install luacheck --user
+	fi
+	if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
+	then
+		echo "[vim] vim with python support found ... ${Green}OK${Reset}"
+	else
+		echo "[vim] no vim with python support found! -> installing"
+		if is_apple || is_arch
+		then
+			install_tool vim
+		else
+			install_tool vim-nox
+		fi
+	fi
 }
 
 function check_dotfile_version() {
