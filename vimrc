@@ -1,4 +1,4 @@
-" version 0039
+" version 0040
 " put these lines in ~/.vimrc
 
 " Basics
@@ -179,27 +179,31 @@ autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
 " echo "filename '"filename"'"
-if filename =~ "^/"
-	" echo "absolute"
-	" use absolute execution path to support compiling and especially
-	" executing things like:
-	" vim /tmp/foo.c
-	"                                                                                               note the missing ./
-	"                                                                                                      |
-	"                                                                                                      V
-	autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && '.shellescape('%:r')<CR>
-	autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' '.shellescape('%:r')<CR>
+if filename == "CMakeLists.txt"
+	autocmd filetype cmake nnoremap <F4> :w <bar> exec '!cmake .'<CR>
 else
-	" echo "relative"
-	if filereadable("Makefile")
-		autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
-		autocmd filetype c nnoremap <leader>rt :exec '!make && 'c_gdb' ./'.shellescape('%:r')<CR>
-		autocmd filetype cpp nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
-		autocmd filetype cpp nnoremap <leader>rt :exec '!make && 'c_gdb' ./'.shellescape('%:r')<CR>
+	if filename =~ "^/"
+		" echo "absolute"
+		" use absolute execution path to support compiling and especially
+		" executing things like:
+		" vim /tmp/foo.c
+		"                                                                                               note the missing ./
+		"                                                                                                      |
+		"                                                                                                      V
+		autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && '.shellescape('%:r')<CR>
+		autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' '.shellescape('%:r')<CR>
 	else
-		autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
-		autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' ./'.shellescape('%:r')<CR>
-		autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+		" echo "relative"
+		if filereadable("Makefile")
+			autocmd filetype c nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
+			autocmd filetype c nnoremap <leader>rt :exec '!make && 'c_gdb' ./'.shellescape('%:r')<CR>
+			autocmd filetype cpp nnoremap <F4> :w <bar> exec '!make && ./'.shellescape('%:r')<CR>
+			autocmd filetype cpp nnoremap <leader>rt :exec '!make && 'c_gdb' ./'.shellescape('%:r')<CR>
+		else
+			autocmd filetype c nnoremap <F4> :w <bar> exec '!gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+			autocmd filetype c nnoremap <leader>rt :exec '!gcc -ggdb '.shellescape('%').' -o '.shellescape('%:r').' && 'c_dbg' ./'.shellescape('%:r')<CR>
+			autocmd filetype cpp nnoremap <F4> :w <bar> exec '!g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+		endif
 	endif
 endif
 autocmd filetype asm nnoremap <F4> :w <bar> exec '!mkdir -p /tmp/vim_asm_c/ && nasm -f elf64 '.shellescape('%').' -o '.shellescape('/tmp/vim_asm_c/%:r.o')' && ld -s -o '.shellescape('/tmp/vim_asm_c/%:r')' '.shellescape('/tmp/vim_asm_c/%:r.o')' && echo "Build successful. Press <F5> to run."'<CR>
