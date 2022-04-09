@@ -1,4 +1,4 @@
-" version 0040
+" version 0041
 " put these lines in ~/.vimrc
 
 " Basics
@@ -266,6 +266,7 @@ call plug#begin('~/.vim/plugged')
 " For MS Windows, this is probably better:
 "call plug#begin('~/vimfiles/plugged')
 
+Plug 'ciaranm/detectindent'
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
 if has('patch-8.1.2269')
