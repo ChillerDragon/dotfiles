@@ -1,4 +1,4 @@
-" version 0041
+" version 0042
 " put these lines in ~/.vimrc
 
 " Basics
@@ -179,6 +179,9 @@ autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
 " echo "filename '"filename"'"
+if filename =~ "^src/.*\.rs$"
+		autocmd filetype rust nnoremap <F4> :w <bar> exec '!cargo run'<CR>
+endif
 if filename == "CMakeLists.txt"
 	autocmd filetype cmake nnoremap <F4> :w <bar> exec '!cmake .'<CR>
 else
