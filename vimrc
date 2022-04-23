@@ -1,4 +1,4 @@
-" version 0042
+" version 0043
 " put these lines in ~/.vimrc
 
 " Basics
@@ -221,23 +221,29 @@ map c <F4>
 " <leader>rt for (run tests) inpsired by:
 " httpst//8thlight.com/blog/chris-jordan/2016/06/13/running-tests-in-vim.html
 if executable('figlet') " if figlet is installed add a nice banner :)
-    autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck -x '.shellescape('%')<CR>
-    autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
-    autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
-    autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
-    autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')<CR>
-    if executable('jq')
-        autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
-    endif
+	autocmd filetype sh nnoremap <leader>rt :exec '!figlet shellcheck;shellcheck -x '.shellescape('%')<CR>
+	autocmd filetype perl nnoremap <leader>rt :exec '!figlet perl-strict;perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
+	autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
+	autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
+	autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')<CR>
+	if executable('jq')
+		autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
+	endif
+	if filename =~ "^src/.*\.rs$"
+		autocmd filetype rust nnoremap <leader>rt :exec '!figlet "cargo check";cargo check'<CR>
+	endif
 else
-    autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck -x '.shellescape('%')<CR>
-    autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
-    autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
-    autocmd filetype lua nnoremap <leader>rt :exec '!luacheck '.shellescape('%')<CR>
-    autocmd filetype python nnoremap <leader>rt :exec '!pylint '.shellescape('%')<CR>
-    if executable('jq')
-        autocmd filetype json nnoremap <leader>rt :exec '!cat '.shellescape('%')' \| jq'<CR>
-    endif
+	autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck -x '.shellescape('%')<CR>
+	autocmd filetype perl nnoremap <leader>rt :exec '!perl -Mstrict -Mdiagnostics -cw '.shellescape('%')<CR>
+	autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
+	autocmd filetype lua nnoremap <leader>rt :exec '!luacheck '.shellescape('%')<CR>
+	autocmd filetype python nnoremap <leader>rt :exec '!pylint '.shellescape('%')<CR>
+	if executable('jq')
+		autocmd filetype json nnoremap <leader>rt :exec '!cat '.shellescape('%')' \| jq'<CR>
+	endif
+	if filename =~ "^src/.*\.rs$"
+		autocmd filetype rust nnoremap <leader>rt :exec '!cargo check'<CR>
+	endif
 endif
 
 " https://vi.stackexchange.com/a/2237
