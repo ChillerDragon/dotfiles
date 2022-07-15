@@ -1,4 +1,4 @@
-" version 0043
+" version 0044
 " put these lines in ~/.vimrc
 
 " Basics
@@ -278,6 +278,8 @@ call plug#begin('~/.vim/plugged')
 Plug 'ciaranm/detectindent'
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
+Plug 'ctrlpvim/ctrlp.vim'
+let g:ctrlp_match_window = 'top'
 if has('patch-8.1.2269')
     Plug 'ycm-core/YouCompleteMe'
 else
