@@ -1,2 +1,3 @@
 # sha1sums of the gdbinit versions
 2af717792a5028b5c5b3f2ee929838cb90b18a6c 0001
+e39b01e48e30f503f05d9a16f4a1d8dd59d13730 0002
