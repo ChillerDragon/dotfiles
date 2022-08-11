@@ -77,6 +77,10 @@ function menu_types() {
                 init_type ssh_config ~/.ssh/config '#'
                 break
                 ;;
+            "gdbinit")
+                init_type gdbinit ~/.gdbinit '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break

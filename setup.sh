@@ -393,6 +393,7 @@ install_pictures
 update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
 update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
+update_rc_file gdbinit gdbinit "$HOME/.gdbinit"
 
 if is_apple
 then
