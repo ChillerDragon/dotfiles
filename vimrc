@@ -1,4 +1,4 @@
-" version 0045
+" version 0046
 " put these lines in ~/.vimrc
 
 " Basics
@@ -180,7 +180,9 @@ autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
 " echo "filename '"filename"'"
 if filename =~ "^src/.*\.rs$"
-		autocmd filetype rust nnoremap <F4> :w <bar> exec '!cargo run'<CR>
+	autocmd filetype rust nnoremap <F4> :w <bar> exec '!cargo run'<CR>
+else
+	autocmd filetype rust nnoremap <F4> :w <bar> exec '!rustc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 endif
 if filename == "CMakeLists.txt"
 	autocmd filetype cmake nnoremap <F4> :w <bar> exec '!cmake .'<CR>
@@ -226,6 +228,11 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 	autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
 	autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
 	autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')<CR>
+
+	if executable('standard')
+		autocmd filetype javascript nnoremap <leader>rt :exec '!figlet standard;standard '.shellescape('%')<CR>
+	endif
+
 	if executable('jq')
 		autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
 	endif
@@ -238,6 +245,9 @@ else
 	autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
 	autocmd filetype lua nnoremap <leader>rt :exec '!luacheck '.shellescape('%')<CR>
 	autocmd filetype python nnoremap <leader>rt :exec '!pylint '.shellescape('%')<CR>
+	if executable('standard')
+		autocmd filetype javascript nnoremap <leader>rt :exec '!standard '.shellescape('%')<CR>
+	endif
 	if executable('jq')
 		autocmd filetype json nnoremap <leader>rt :exec '!cat '.shellescape('%')' \| jq'<CR>
 	endif
