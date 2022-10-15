@@ -1,4 +1,4 @@
-" version 0046
+" version 0047
 " put these lines in ~/.vimrc
 
 " Basics
@@ -228,7 +228,9 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 	autocmd filetype php nnoremap <leader>rt :exec '!figlet php-lint;php -l '.shellescape('%')<CR>
 	autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
 	autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')<CR>
-
+	autocmd filetype make nnoremap <leader>rt :exec '!figlet dry make;make -n'<CR>
+	autocmd filetype cpp nnoremap <leader>rt :exec '!figlet clang-tidy;clang-tidy '.shellescape('%')<CR>
+	autocmd filetype c nnoremap <leader>rt :exec '!figlet clang-tidy;clang-tidy '.shellescape('%')<CR>
 	if executable('standard')
 		autocmd filetype javascript nnoremap <leader>rt :exec '!figlet standard;standard '.shellescape('%')<CR>
 	endif
@@ -245,6 +247,9 @@ else
 	autocmd filetype php nnoremap <leader>rt :exec '!php -l '.shellescape('%')<CR>
 	autocmd filetype lua nnoremap <leader>rt :exec '!luacheck '.shellescape('%')<CR>
 	autocmd filetype python nnoremap <leader>rt :exec '!pylint '.shellescape('%')<CR>
+	autocmd filetype make nnoremap <leader>rt :exec '!make -n'<CR>
+	autocmd filetype cpp nnoremap <leader>rt :exec '!clang-tidy '.shellescape('%')<CR>
+	autocmd filetype c nnoremap <leader>rt :exec '!clang-tidy '.shellescape('%')<CR>
 	if executable('standard')
 		autocmd filetype javascript nnoremap <leader>rt :exec '!standard '.shellescape('%')<CR>
 	endif
