@@ -1,4 +1,4 @@
-# version 0005
+# version 0006
 # for IdentitiesOnly yes see:
 # https://stackoverflow.com/a/11251797
 
@@ -13,6 +13,17 @@ Host github-WORK
     HostName github.com
     User git
     IdentityFile ~/.ssh/work_rsa
+    IdentitiesOnly yes
+Host gitlab-MIRROR
+    HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/mirror_rsa
+    IdentitiesOnly yes
+Host github-TEST
+    HostName github.com
+    User git
+    # IdentityFile ~/.ssh/test/id_rsa
+    IdentityFile ~/.ssh/test/id_ed25519
     IdentitiesOnly yes
 Host github-ZillyHuhn
     HostName github.com
