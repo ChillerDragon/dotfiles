@@ -227,6 +227,17 @@ function update_teeworlds() {
 	fi
 	mkdir -p "$twdir"
 	cd "$twdir" || exit 1
+	if [ "$USER" == "chiller" ]
+	then
+		if [ ! -d SettingsPriv/ ]
+		then
+			git clone "${github}ChillerTW/SettingsPriv"
+		fi
+		cd SettingsPriv || exit 1
+		git pull
+		./setup.sh || exit 1
+		cd .. || exit 1
+	fi
 	if [ ! -d GitSettings/ ]
 	then
 		git clone "${github}ChillerTW/GitSettings"
