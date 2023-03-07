@@ -81,6 +81,10 @@ function menu_types() {
                 init_type gdbinit ~/.gdbinit '#'
                 break
                 ;;
+            "init.vim")
+                init_type init.vim ~/.config/nvim/init.vim '"'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break
