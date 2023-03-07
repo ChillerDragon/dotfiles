@@ -401,6 +401,8 @@ fi
 install_vim
 install_pictures
 
+mkdir -p "$HOME/.config/nvim/"
+update_rc_file neovim init.vim "$HOME/.config/nvim/init.vim"
 update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
 update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
