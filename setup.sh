@@ -326,6 +326,7 @@ function update_gitconfig() {
             echo "# https://github.com/ChillerDragon/dotfiles"
             echo "tags"
 	    echo "tags.lock"
+	    echo "tags.temp"
         } > ~/.gitignore
     else
         if ! grep -q '^tags$' ~/.gitignore
@@ -337,6 +338,7 @@ function update_gitconfig() {
                 echo "# https://github.com/ChillerDragon/dotfiles"
                 echo "tags"
 		echo "tags.lock"
+		echo "tags.temp"
             } >> ~/.gitignore
         fi
     fi
