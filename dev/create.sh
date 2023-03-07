@@ -12,6 +12,18 @@ read -rp "repo file(vimrc): " repofile
 read -rp "rc path(~/.vimrc): " rcfile
 read -rp "$repofile comment(\"): " comment
 
+[[ "$comment" == "" ]] && comment='"'
+if [ "$repofile" == "" ]
+then
+	echo "Error: repo file can not be empty"
+	exit 1
+fi
+if [ "$rcfile" == "" ]
+then
+	echo "Error: rc file can not be empty"
+	exit 1
+fi
+
 name="$repofile"
 if [[ "$name" =~ rc$ ]]
 then
