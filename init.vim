@@ -1,4 +1,4 @@
-" version 0001
+" version 0002
 syntax on
 set relativenumber
 set number
@@ -17,6 +17,12 @@ if has('autocmd')
             \ endif
     augroup END
 endif
+
+" Clear highlighting on escape in normal mode
+" https://stackoverflow.com/a/1037182
+" thanks to @jonbho (twitter)
+nnoremap <esc> :noh<return><esc>
+nnoremap <esc>^[ <esc>^[
 
 call plug#begin('~/.vim/plugged')
 

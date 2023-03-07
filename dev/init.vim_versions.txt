@@ -1,2 +1,3 @@
 # sha1sums of the init.vim versions
 2f3f4e871f807fc1d21365718007b250e2f4705b 0001
+33c9ecd6cc8779c8c73fd966bfabd8c3cbcfc311 0002
