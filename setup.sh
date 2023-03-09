@@ -415,9 +415,39 @@ else
     update_rc_file ssh_config ssh_config "$HOME/.ssh/config"
 fi
 
+function symlink() {
+	local src="$1"
+	local dst="$2"
+	if [ ! -f "$src" ]
+	then
+		echo "Error: failed to symlink '$src' not found"
+		exit 1
+	fi
+	if [ -f "$dst" ]
+	then
+		# TODO: replace silent skip by check if this is the expected sym link
+		return
+	fi
+	echo "[symlink] $dst"
+	ln -s "$(pwd)/$src" "$dst"
+}
+
+function setup_symlinks() {
+	# could also do a `cd $SCRIPT_PATH` here
+	if [ ! -d vim ]
+	then
+		echo "Error: folder vim not found. wrong directoy?"
+		exit 1
+	fi
+	symlink "vim/syntax/ddnet-cfg.vim" ~/.vim/syntax/ddnet-cfg.vim
+	symlink "vim/ftdetect/ddnet-cfg.vim" ~/.vim/ftdetect/ddnet-cfg.vim
+}
+
 install_vim
 install_neovim
 install_pictures
+
+setup_symlinks
 
 mkdir -p "$HOME/.config/nvim/"
 update_rc_file init.vim init.vim "$HOME/.config/nvim/init.vim"
