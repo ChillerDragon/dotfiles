@@ -110,6 +110,21 @@ function install_vim() {
 	fi
 }
 
+function install_neovim() {
+	if [ ! -x "$(command -v curl)" ]
+	then
+		echo "[neovim] please install curl"
+		return
+	fi
+	# https://github.com/junegunn/vim-plug#installation
+	# needed to activate the plug plugin for neovim
+	if [ ! -f "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim ]
+	then
+		sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+			       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+	fi
+}
+
 function check_dotfile_version() {
     local dotfile
     local dotfile_path
@@ -401,6 +416,7 @@ else
 fi
 
 install_vim
+install_neovim
 install_pictures
 
 mkdir -p "$HOME/.config/nvim/"
