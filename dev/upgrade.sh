@@ -85,6 +85,10 @@ function menu_types() {
                 init_type init.vim ~/.config/nvim/init.vim '"'
                 break
                 ;;
+            "sqlite")
+                init_type sqliterc ~/.sqliterc '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break
