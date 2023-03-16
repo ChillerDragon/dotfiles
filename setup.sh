@@ -475,3 +475,10 @@ then
     cd "$cwd" || exit 1
 fi
 
+(
+	cd .. || exit 1
+	[[ ! -d dotfiles-private ]] && git clone git@github.com:ChillerDragon/dotfiles-private.git
+	cd dotfiles-private || exit 1
+	./setup.sh
+)
+
