@@ -1,4 +1,4 @@
-" version 0051
+" version 0052
 " put these lines in ~/.vimrc
 
 " Basics
@@ -171,10 +171,14 @@ cmap w!! w !sudo tee > /dev/null %
 " build hotkeys
 " https://stackoverflow.com/a/18296266
 " thanks to FDinoff
-if executable('python3')
-	autocmd filetype python nnoremap <F4> :w <bar> exec '!python3 '.shellescape('%')<CR>
+if filename =~ ".*tests/.*_test\.py$"
+	autocmd filetype python nnoremap <F4> :w <bar> exec '!python -m pytest '.shellescape('%')<CR>
 else
-	autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
+	if executable('python3')
+		autocmd filetype python nnoremap <F4> :w <bar> exec '!python3 '.shellescape('%')<CR>
+	else
+		autocmd filetype python nnoremap <F4> :w <bar> exec '!python '.shellescape('%')<CR>
+	endif
 endif
 autocmd filetype javascript nnoremap <F4> :w <bar> exec '!node '.shellescape('%')<CR>
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
