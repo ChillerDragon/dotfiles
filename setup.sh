@@ -362,6 +362,12 @@ function update_gitconfig() {
 	then
 		echo "[gitconfig] setting up alias 'git d' ..."
 		git config --global alias.d "diff --word-diff --color-words"
+	elif [ "$git_alias_d" == "diff --word-diff --color-words" ]
+	then
+		# use this branch to update the alias in case we add new flags
+		test
+	else
+		echo "[gitconfig] warning not overwriting custom 'git d' alias!"
 	fi
 	git config --global core.editor vim
 	git config --global pull.rebase true
