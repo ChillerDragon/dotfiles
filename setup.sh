@@ -357,6 +357,12 @@ function update_gitconfig() {
             } >> ~/.gitignore
         fi
     fi
+    local git_alias_d="$(git config --global alias.d)"
+    if [ "$git_alias_d" == "" ]
+    then
+	    echo "[gitconfig] setting up alias 'git d' ..."
+	    git config --global alias.d "diff --word-diff --color-words"
+    fi
     git config --global core.editor vim
     git config --global pull.rebase true
     if ! git config user.name > /dev/null
