@@ -1,4 +1,4 @@
-" version 0055
+" version 0056
 " put these lines in ~/.vimrc
 
 " Basics
@@ -254,6 +254,17 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 		autocmd filetype javascript nnoremap <leader>rt :exec '!figlet standard;standard '.shellescape('%')<CR>
 	endif
 
+	if executable('yamllint')
+		if executable('kubectl')
+			" TODO: only apply proper k8s manifests
+			"       getline works at runtime but not at vimrc load
+			"       somehow
+			" if getline(1) =~ '.*apiVersion.*'
+			autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')';figlet kubectl dry;kubectl apply --dry-run=server -f '.shellescape('%')<CR>
+		else
+			autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')<CR>
+		endif
+	endif
 	if executable('jq')
 		autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
 	endif
