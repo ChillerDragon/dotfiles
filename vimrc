@@ -1,4 +1,4 @@
-" version 0056
+" version 0057
 " put these lines in ~/.vimrc
 
 " Basics
@@ -260,7 +260,11 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 			"       getline works at runtime but not at vimrc load
 			"       somehow
 			" if getline(1) =~ '.*apiVersion.*'
-			autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')';figlet kubectl dry;kubectl apply --dry-run=server -f '.shellescape('%')<CR>
+			if executable("kubeconform")
+				autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')';figlet kubectl dry;kubectl apply --dry-run=server -f '.shellescape('%')';figlet kubeconform; kubeconform -strict -verbose '.shellescape('%')<CR>
+			else
+				autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')';figlet kubectl dry;kubectl apply --dry-run=server -f '.shellescape('%')<CR>
+			endif
 		else
 			autocmd filetype yaml nnoremap <leader>rt :exec '!figlet yamllint;yamllint '.shellescape('%')<CR>
 		endif
