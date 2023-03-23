@@ -1,4 +1,4 @@
-" version 0054
+" version 0055
 " put these lines in ~/.vimrc
 
 " Basics
@@ -298,6 +298,11 @@ augroup END
 
 " Plugins
 "-----------------------------------------------------------------------------
+
+" close the annoying help buffer
+" bloats in a useless split screen when tab completing python for example
+let g:ycm_autoclose_preview_window_after_insertion = 1
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 if empty(glob('~/.vim/autoload/plug.vim'))
