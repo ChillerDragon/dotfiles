@@ -1,4 +1,4 @@
-" version 0053
+" version 0054
 " put these lines in ~/.vimrc
 
 " Basics
@@ -237,7 +237,7 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 	autocmd filetype lua nnoremap <leader>rt :exec '!figlet luacheck;luacheck '.shellescape('%')<CR>
 	if executable('mypy')
 		if executable('ruff')
-			autocmd filetype python nnoremap <leader>rt :exec '!figlet ruff;ruff '.shellescape('%')';figlet mypy;mypy '.shellescape('%')<CR>
+			autocmd filetype python nnoremap <leader>rt :exec '!figlet ruff;ruff check '.shellescape('%')';figlet mypy;mypy '.shellescape('%')<CR>
 		else
 			autocmd filetype python nnoremap <leader>rt :exec '!figlet pylint;pylint '.shellescape('%')';figlet mypy;mypy '.shellescape('%')<CR>
 		endif
