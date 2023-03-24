@@ -1,4 +1,4 @@
-# version 0009
+# version 0010
 alias fd='cd "$(find . -type d | fzf)"'
 alias x='ls && git status'
 alias serve='echo "http://localhost:9090" && ruby -run -e httpd . -p 9090'
@@ -10,6 +10,7 @@ alias tnlx='tr " " "\n" | xsel -ib'
 # lopen - line open
 # fuzzy find all lines and then open the matched line in vim
 alias lopen='vim $(m="$(rg -n . | fzf)";echo "$m" | cut -d":" -f1;printf +;echo "$m" | cut -d":" -f2)'
+alias viewcert='openssl x509 -noout -text -in'
 for((i=1;i<9;i++))
 do
     eval "alias zzh$i='zzh $i'"
