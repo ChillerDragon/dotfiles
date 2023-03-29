@@ -1,4 +1,4 @@
-" version 0058
+" version 0059
 " put these lines in ~/.vimrc
 
 " Basics
@@ -314,6 +314,10 @@ augroup END
 " Plugins
 "-----------------------------------------------------------------------------
 
+" https://github.com/vim-python/python-syntax
+" highlight python f strings
+let g:python_highlight_all = 1
+
 " close the annoying help buffer
 " bloats in a useless split screen when tab completing python for example
 let g:ycm_autoclose_preview_window_after_insertion = 1
@@ -336,6 +340,7 @@ Plug 'ciaranm/detectindent'
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'ctrlpvim/ctrlp.vim'
+Plug 'vim-python/python-syntax'
 Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 if has('patch-8.1.2269')
     Plug 'ycm-core/YouCompleteMe'
