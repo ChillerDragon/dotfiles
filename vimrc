@@ -1,4 +1,4 @@
-" version 0059
+" version 0060
 " put these lines in ~/.vimrc
 
 " Basics
@@ -273,7 +273,7 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 		autocmd filetype json nnoremap <leader>rt :exec '!figlet jq;echo "";cat '.shellescape('%')' \| jq'<CR>
 	endif
 	if filename =~ "^src/.*\.rs$"
-		autocmd filetype rust nnoremap <leader>rt :exec '!figlet "cargo check";cargo check'<CR>
+		autocmd filetype rust nnoremap <leader>rt :exec '!figlet "cargo check";cargo check;figlet "cargo clippy"; cargo clippy'<CR>
 	endif
 else
 	autocmd filetype sh nnoremap <leader>rt :exec '!shellcheck -x '.shellescape('%')<CR>
