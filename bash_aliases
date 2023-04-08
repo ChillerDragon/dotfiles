@@ -1,5 +1,4 @@
-# version 0011
-alias fd='cd "$(find . -type d | fzf)"'
+# version 0012
 alias x='ls && git status'
 alias serve='echo "http://localhost:9090" && ruby -run -e httpd . -p 9090'
 alias start='xdg-open'
