@@ -1,4 +1,4 @@
-" version 0062
+" version 0063
 " put these lines in ~/.vimrc
 
 " Basics
@@ -181,6 +181,9 @@ else
 	endif
 endif
 autocmd filetype javascript nnoremap <F4> :w <bar> exec '!node '.shellescape('%')<CR>
+if executable('npx')
+	autocmd filetype typescript nnoremap <F4> :w <bar> exec '!npx ts-node '.shellescape('%')<CR>
+endif
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
 autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
