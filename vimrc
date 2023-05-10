@@ -1,4 +1,4 @@
-" version 0063
+" version 0064
 " put these lines in ~/.vimrc
 
 " Basics
@@ -331,6 +331,9 @@ let g:python_highlight_all = 1
 " bloats in a useless split screen when tab completing python for example
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
+" hide the big doc popups that appear in the middle of the code
+" if chilling with the cursor a bit
+let g:ycm_auto_hover=''
 
 " https://github.com/junegunn/vim-plug/wiki/tips#automatic-installation
 if empty(glob('~/.vim/autoload/plug.vim'))
