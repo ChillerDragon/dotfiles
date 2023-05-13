@@ -1,4 +1,4 @@
-" version 0067
+" version 0068
 " put these lines in ~/.vimrc
 
 " Basics
@@ -263,13 +263,13 @@ if executable('figlet') " if figlet is installed add a nice banner :)
 	if executable('node')
 		autocmd filetype javascript nnoremap <leader>rt :exec '!figlet node check;node -c '.shellescape('%')<CR>
 		if executable('standard')
-			autocmd filetype javascript nnoremap <leader>rt :exec '!figlet standard;standard '.shellescape('%')';figlet node check;node -c '.shellescape('%')<CR>
+			autocmd filetype javascript nnoremap <leader>rt :exec '!figlet standard;standard '.shellescape('%')
 		endif
 	endif
 	if executable('npx')
 		" autocmd filetype typescript nnoremap <leader>rt :exec '!npx ts-node -c '.shellescape('%')<CR>
 		if executable('ts-standard')
-			autocmd filetype typescript nnoremap <leader>rt :exec '!figlet ts-standard;ts-standard '.shellescape('%')<CR>
+			autocmd filetype typescript nnoremap <leader>rt :exec '!figlet ts-standard;ts-standard '.shellescape('%')';figlet tsc;npx tsc'<CR>
 		endif
 	endif
 
