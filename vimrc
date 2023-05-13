@@ -1,4 +1,4 @@
-" version 0064
+" version 0065
 " put these lines in ~/.vimrc
 
 " Basics
@@ -172,7 +172,11 @@ cmap w!! w !sudo tee > /dev/null %
 " https://stackoverflow.com/a/18296266
 " thanks to FDinoff
 if filename =~ ".*tests/.*_test\.py$"
-	autocmd filetype python nnoremap <F4> :w <bar> exec '!python -m pytest '.shellescape('%')<CR>
+	if executable('python3')
+		autocmd filetype python nnoremap <F4> :w <bar> exec '!python3 -m pytest '.shellescape('%')<CR>
+	else
+		autocmd filetype python nnoremap <F4> :w <bar> exec '!python -m pytest '.shellescape('%')<CR>
+	endif
 else
 	if executable('python3')
 		autocmd filetype python nnoremap <F4> :w <bar> exec '!PYTHONPATH=. python3 '.shellescape('%')<CR>
