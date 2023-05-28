@@ -44,9 +44,7 @@ function install_tool() {
     else
         if is_arch
         then
-            # I do not feel pro enough in arch yet to do this
-            # pckmn="pacman -Sy --noconfirm"
-            pckmn="pacman -Sy"
+            pckmn="pacman -Sy --noconfirm --needed"
         else
             pckmn="apt install -y"
         fi
@@ -63,6 +61,43 @@ function install_tool() {
             fi
         fi
     fi
+}
+
+function is_package_installed() {
+	local package="$1"
+	if is_arch
+	then
+		if pacman -Q "$package" &> /dev/null
+		then
+			return 0
+		fi
+	fi
+	return 1
+}
+
+function install_packages() {
+	local package
+	local package_files=()
+	local package_file
+	if [ -x "$(command -v apt)" ] || [ -x "$(command -v pacman)" ]
+	then
+		package_files+=("./packages/apt_and_pacman.txt")
+	fi
+	[[ -x "$(command -v apt)" ]] && package_files+=("./packages/apt.txt")
+	[[ -x "$(command -v pacman)" ]] && package_files+=("./packages/pacman.txt")
+	[[ -x "$(command -v brew)" ]] && package_files+=("./packages/brew.txt")
+	for package_file in "${package_files[@]}"
+	do
+		echo "[*] installing $package_file ..."
+		while read -r package
+		do
+			[[ "$package" =~ ^[:space:]*# ]] && continue
+			[[ "$package" == "" ]] && continue
+			is_package_installed "$package" && continue
+
+			install_tool "$package"
+		done < "$package_file"
+	done
 }
 
 function install_vim() {
@@ -357,7 +392,8 @@ function update_gitconfig() {
 			} >> ~/.gitignore
 		fi
 	fi
-	local git_alias_d="$(git config --global alias.d)"
+	local git_alias_d
+	git_alias_d="$(git config --global alias.d)"
 	if [ "$git_alias_d" == "" ]
 	then
 		echo "[gitconfig] setting up alias 'git d' ..."

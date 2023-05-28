@@ -1,0 +1,6 @@
+# pacman packages
+# if they have the same name in apt
+# put them in apt_and_pacman.txt instead
+obs-studio
+pass
+openssh

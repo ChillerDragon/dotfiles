@@ -1,0 +1,9 @@
+jq
+gdb
+screen
+tmux
+vim
+tcpdump
+neofetch
+htop
+maim
