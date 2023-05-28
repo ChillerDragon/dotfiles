@@ -7,3 +7,4 @@ tcpdump
 neofetch
 htop
 maim
+pass
