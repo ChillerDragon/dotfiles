@@ -514,6 +514,8 @@ update_tmux
 update_teeworlds
 update_gitconfig
 
+install_packages
+
 if [ "$is_vim_install" == "1" ]
 then
     vim -c 'PlugInstall | quit | quit' || exit 1
