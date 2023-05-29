@@ -12,3 +12,4 @@ tree
 expect
 mosh
 bash-completion
+ripgrep
