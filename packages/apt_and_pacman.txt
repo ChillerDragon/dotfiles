@@ -11,3 +11,4 @@ pass
 tree
 expect
 mosh
+bash-completion

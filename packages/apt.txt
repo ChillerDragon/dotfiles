@@ -2,3 +2,5 @@ openssh-server
 universal-ctags
 bc
 netcat
+python3
+python3-pip
