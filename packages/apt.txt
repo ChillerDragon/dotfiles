@@ -1,2 +1,4 @@
 openssh-server
 universal-ctags
+bc
+netcat

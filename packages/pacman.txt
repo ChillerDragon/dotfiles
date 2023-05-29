@@ -3,3 +3,4 @@
 # put them in apt_and_pacman.txt instead
 obs-studio
 openssh
+openbsd-netcat
