@@ -8,3 +8,4 @@ neofetch
 htop
 maim
 pass
+tree
