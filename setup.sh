@@ -491,6 +491,12 @@ function setup_symlinks() {
 	symlink "vim/ftdetect/ddnet-cfg.vim" ~/.vim/ftdetect/ddnet-cfg.vim
 }
 
+if [ ! -d ~/.um ] && [ "$USER" == "chiller" ]
+then
+	mkdir ~/.um
+	git clone git@github.com:ChillerData/um-pages/ ~/.um/pages
+fi
+
 install_vim
 install_neovim
 install_pictures
