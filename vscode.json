@@ -1,4 +1,7 @@
 {
 	"comment": "Place this file under ~/.config/Code - OSS/User/settings.json",
-	"editor.fontFamily": "'MonoLisa', Consolas, 'Courier New', monospace"
+	"editor.fontFamily": "'MonoLisa', Consolas, 'Courier New', monospace",
+	"emmet.includeLanguages": {
+		"erb": "html"
+    	}
 }
