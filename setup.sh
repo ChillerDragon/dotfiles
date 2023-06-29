@@ -520,7 +520,8 @@ update_tmux
 update_teeworlds
 update_gitconfig
 
-install_packages
+# TODO: skip already installed packages
+# install_packages
 
 if [ "$is_vim_install" == "1" ]
 then
