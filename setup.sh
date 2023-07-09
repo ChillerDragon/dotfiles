@@ -34,6 +34,23 @@ command -v sha1sum >/dev/null 2>&1 || {
     fi
 }
 
+
+function git_save_pull() {
+	local repo="$1"
+	if [ "$repo" == "" ]
+	then
+		echo "[-] Error: called git_save_pull without repo"
+		exit 1
+	fi
+	if [ "$(git status | tail -n1)" != "nothing to commit, working tree clean" ]
+	then
+		echo "[!] WARNING: git pull failed! Is your $(tput bold)$repo$(tput sgr0) working tree clean?"
+		return
+	fi
+	echo "[*] updating $repo ..."
+	git pull
+}
+
 function install_tool() {
     local tool
     local pckmn
@@ -56,7 +73,7 @@ function install_tool() {
             then
                 eval "sudo $pckmn $tool"
             else
-                echo "[!] Error: install sudo"
+                echo "[-] Error: install sudo"
                 exit 1
             fi
         fi
@@ -247,7 +264,7 @@ function update_tmux() {
 	then
 		(
 			cd ~/.tmux/plugins/tpm || { echo "Error: failed to cd into tmp!"; exit 1; }
-			git pull
+			git_save_pull tpm
 		)
 	else
 		git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
@@ -288,12 +305,12 @@ function update_teeworlds() {
 			git clone "${github}ChillerTW/SettingsPriv"
 		fi
 		cd SettingsPriv || exit 1
-		git pull
+		git_save_pull SettingsPriv
 		./setup.sh || exit 1
 		cd .. || exit 1
 	fi
 	cd GitSettings || exit 1
-	git pull
+	git_save_pull GitSettings
 	cd "$twdir" || exit 1
 	if [ ! -d maps ]
 	then
@@ -302,7 +319,7 @@ function update_teeworlds() {
 		cd maps || exit 1
 		if [ -d .git ]
 		then
-			git pull
+			git_save_pull maps
 		fi
 	fi
 	cd "$twdir" || exit 1
@@ -321,7 +338,7 @@ function update_teeworlds() {
 		git clone "${github}chillerbot/chillerbot-scripts" cbs
 	else
 		cd cbs || exit 1
-		git pull
+		git_save_pull cbs
 	fi
 	cd "$cwd" || exit 1
 }
