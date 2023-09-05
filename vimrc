@@ -1,4 +1,4 @@
-" version 0068
+" version 0069
 " put these lines in ~/.vimrc
 
 " Basics
@@ -12,6 +12,10 @@ set number
 " set shiftwidth=4
 " set softtabstop=4
 " set expandtab
+
+" modeline activates parsing custom vim settings
+" per file based on magic comments
+set modeline
 
 let mapleader = ","
 let filename = expand("%")
