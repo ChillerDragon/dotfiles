@@ -1,4 +1,4 @@
-" version 0069
+" version 0070
 " put these lines in ~/.vimrc
 
 " Basics
@@ -336,6 +336,13 @@ augroup END
 
 " Plugins
 "-----------------------------------------------------------------------------
+
+" https://github.com/mg979/vim-visual-multi/issues/177#issuecomment-1742098633
+" arrow key navigation for vim-visual-multi
+nmap <buffer> <left> h
+nmap <buffer> <right> l
+nmap <buffer> <up> k
+nmap <buffer> <down> j
 
 " https://github.com/vim-python/python-syntax
 " highlight python f strings
