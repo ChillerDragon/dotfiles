@@ -1,0 +1,32 @@
+set ssl_force_tls = yes
+set abort_nosubject = no
+set mail_check = 60
+set timeout = 10
+set sort = "reverse-date-received"
+set copy = no
+
+set from = "chillerdragon@gmail.com"
+set realname = "Chiller Dragon"
+
+# Imap settings
+set imap_user = "chillerdragon@gmail.com"
+set imap_pass = "xxx"
+
+# Smtp settings
+set smtp_url = "smtps://chillerdragon@smtp.gmail.com"
+set smtp_pass = "xxx"
+
+# Remote gmail folders
+set folder = "imaps://imap.gmail.com/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+set record = "+[Gmail]/Sent Mail"
+set trash = "+[Gmail]/Trash"
+
+# Pfad zur mailcap-Datei
+set mailcap_path=/home/chiller/.mutt/mailcap
+# HTML-Dateien automatisch anzeigen
+auto_view text/html
+set implicit_autoview=yes
+# Plain-Text Dateien sollen bevorzugt werden
+alternative_order text/plain text/html
