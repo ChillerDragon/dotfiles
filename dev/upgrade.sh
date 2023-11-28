@@ -89,6 +89,10 @@ function menu_types() {
                 init_type sqliterc ~/.sqliterc '#'
                 break
                 ;;
+            "mutt")
+                init_type muttrc ~/.muttrc '#'
+                break
+                ;;
             "vim")
                 init_type vimrc ~/.vimrc '"'
                 break

@@ -1,0 +1,2 @@
+# sha1sums of the muttrc versions
+e455e806153958b64de640f286d6347e1327d6b7 0001
