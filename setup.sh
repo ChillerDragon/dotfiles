@@ -394,6 +394,18 @@ function update_gitconfig() {
 	else
 		echo "[gitignore] WARNING not overwriting custom gitignore"
 	fi
+	local global_gitdiff
+	global_gitdiff="$(git config --global diff.wsErrorHighlight)"
+	if [ "$global_gitdiff" == "" ]
+	then
+		echo "[gitdiff] set global diff.wsErrorHighlight to all (hilite tabs)"
+		git config --global diff.wsErrorHighlight all
+	elif [ "$global_gitdiff" == "all" ]
+	then
+		echo "[gitdiff] git diff.wsErrorHighlight all already set"
+	else
+		echo "[gitdiff] WARNING not overwriting custom gitdiff"
+	fi
 	if [ ! -f ~/.gitignore ]
 	then
 		echo "[gitignore] creating global gitignore"
