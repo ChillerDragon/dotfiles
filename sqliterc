@@ -1,3 +1,2 @@
-# version 0001
-.headers on
-.mode column
+# version 0002
+.mode table

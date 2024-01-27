@@ -1,2 +1,3 @@
 # sha1sums of the sqliterc versions
 deefa8f61f98a4f9d385086f6168c2ef56f7980d 0001
+8ab3b9b3fea3a97ad5513e496f0a5fd2eaa0549c 0002
