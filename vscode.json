@@ -3,5 +3,9 @@
 	"editor.fontFamily": "'MonoLisa', Consolas, 'Courier New', monospace",
 	"emmet.includeLanguages": {
 		"erb": "html"
-    	}
+	},
+	"search.exclude": {
+		"**/.venv": true,
+		"tags": true
+	}
 }
