@@ -46,5 +46,23 @@
   {
     "key": "ctrl+t",
     "command": "workbench.action.createTerminalEditorSide"
-  }
+  },
+  {
+    "key": "ctrl+enter",
+    "command": "runCommands",
+    "args": {
+      "commands": [
+        "workbench.action.files.save",
+        "workbench.action.terminal.focusPrevious",
+        {
+          "command": "workbench.action.terminal.sendSequence",
+          "args": {
+            "text": "make || true\u000D"
+          }
+        },
+        "workbench.action.focusPreviousGroup"
+      ]
+    },
+    "when": "editorLangId == cpp"
+  },
 ]
