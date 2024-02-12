@@ -1,4 +1,4 @@
-" version 0071
+" version 0072
 " put these lines in ~/.vimrc
 
 " Basics
@@ -35,8 +35,11 @@ set backspace=indent,eol,start
 " tmux colors
 " https://github.com/tmux/tmux/issues/699#issuecomment-269572025
 " thanks to gapplef ( Julian Chen )
-set background=dark
 set t_Co=256
+set background=dark
+if !empty($VIM_BACKGROUND)
+   :let &background = $VIM_BACKGROUND
+endif
 
 " restore cursor pos
 " https://stackoverflow.com/a/7894493
