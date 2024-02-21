@@ -1,4 +1,4 @@
-" version 0072
+" version 0073
 " put these lines in ~/.vimrc
 
 " Basics
@@ -197,7 +197,11 @@ if executable('npx')
 endif
 autocmd filetype sh nnoremap <F4> :w <bar> exec '!bash '.shellescape('%')<CR>
 autocmd filetype perl nnoremap <F4> :w <bar> exec '!perl '.shellescape('%')<CR>
-autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
+if filename =~ ".*spec/.*_spec\.rb$"
+	autocmd filetype ruby nnoremap <F4> :w <bar> exec '!rspec '.shellescape('%')<CR>
+else
+	autocmd filetype ruby nnoremap <F4> :w <bar> exec '!ruby '.shellescape('%')<CR>
+endif
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
 " echo "filename '"filename"'"
