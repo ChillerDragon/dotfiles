@@ -512,6 +512,8 @@ function setup_symlinks() {
 		echo "Error: folder vim not found. wrong directoy?"
 		exit 1
 	fi
+	mkdir -p ~/.vim/syntax
+	mkdir -p ~/.vim/ftdetect
 	symlink "vim/syntax/ddnet-cfg.vim" ~/.vim/syntax/ddnet-cfg.vim
 	symlink "vim/ftdetect/ddnet-cfg.vim" ~/.vim/ftdetect/ddnet-cfg.vim
 }
