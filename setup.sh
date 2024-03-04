@@ -536,7 +536,7 @@ update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
 update_rc_file bash_aliases bash_aliases "$HOME/.bash_aliases"
 update_rc_file gdbinit gdbinit "$HOME/.gdbinit"
-update_rc_file sqliterc sqliterc "$HOME/.sqliterc"
+update_rc_file sqlite sqliterc "$HOME/.sqliterc"
 
 if is_apple
 then
