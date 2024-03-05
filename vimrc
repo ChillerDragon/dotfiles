@@ -1,4 +1,4 @@
-" version 0075
+" version 0076
 " put these lines in ~/.vimrc
 
 " Basics
@@ -204,6 +204,7 @@ else
 endif
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
+autocmd filetype haskell nnoremap <F4> :w <bar> exec '!ghc '.shellescape('%') ' && printf "\n" && ./'.shellescape('%:r')<CR>
 " echo "filename '"filename"'"
 if filename =~ "^src/.*\.rs$"
 	autocmd filetype rust nnoremap <F4> :w <bar> exec '!cargo run'<CR>
