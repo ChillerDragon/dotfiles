@@ -1,4 +1,4 @@
-" version 0073
+" version 0074
 " put these lines in ~/.vimrc
 
 " Basics
@@ -17,7 +17,7 @@ set number
 " per file based on magic comments
 set modeline
 
-let mapleader = ","
+let mapleader = " "
 let filename = expand("%")
 
 " no physical line wrapping when too long
