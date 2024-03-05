@@ -1,4 +1,4 @@
-" version 0076
+" version 0077
 " put these lines in ~/.vimrc
 
 " Basics
@@ -204,7 +204,11 @@ else
 endif
 autocmd filetype php nnoremap <F4> :w <bar> exec '!php '.shellescape('%')<CR>
 autocmd filetype lua nnoremap <F4> :w <bar> exec '!lua '.shellescape('%')<CR>
-autocmd filetype haskell nnoremap <F4> :w <bar> exec '!ghc '.shellescape('%') ' && printf "\n" && ./'.shellescape('%:r')<CR>
+if glob('./*.cabal')!=#""
+	autocmd filetype haskell nnoremap <F4> :w <bar> exec '!cabal install'<CR>
+else
+	autocmd filetype haskell nnoremap <F4> :w <bar> exec '!ghc '.shellescape('%') ' && printf "\n" && ./'.shellescape('%:r')<CR>
+endif
 " echo "filename '"filename"'"
 if filename =~ "^src/.*\.rs$"
 	autocmd filetype rust nnoremap <F4> :w <bar> exec '!cargo run'<CR>
