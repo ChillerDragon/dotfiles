@@ -377,6 +377,7 @@ function print_gitignore() {
 	echo "tags.lock"
 	echo "tags.temp"
 	echo ".gdb_history"
+	echo ".cache"
 }
 
 function update_gitconfig() {
