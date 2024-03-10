@@ -363,7 +363,6 @@ function print_gitignore() {
 	echo "tags.temp"
 	echo ".gdb_history"
 	echo ".cache"
-	echo ".git"
 }
 
 function update_gitconfig() {
