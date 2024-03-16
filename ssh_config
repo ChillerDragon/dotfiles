@@ -1,4 +1,4 @@
-# version 0007
+# version 0008
 # for IdentitiesOnly yes see:
 # https://stackoverflow.com/a/11251797
 
@@ -17,7 +17,7 @@ Host github-WORK
 Host gitlab-MIRROR
     HostName gitlab.com
     User git
-    IdentityFile ~/.ssh/mirror_rsa
+    IdentityFile ~/.ssh/ChillerMirror/id_rsa
     IdentitiesOnly yes
 Host github-ZillyHuhn
     HostName github.com
