@@ -1,4 +1,4 @@
-# version 0008
+# version 0009
 # for IdentitiesOnly yes see:
 # https://stackoverflow.com/a/11251797
 
@@ -16,6 +16,11 @@ Host github-WORK
     IdentitiesOnly yes
 Host gitlab-MIRROR
     HostName gitlab.com
+    User git
+    IdentityFile ~/.ssh/ChillerMirror/id_rsa
+    IdentitiesOnly yes
+Host codeberg-MIRROR
+    HostName codeberg.org
     User git
     IdentityFile ~/.ssh/ChillerMirror/id_rsa
     IdentitiesOnly yes
