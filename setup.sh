@@ -5,6 +5,8 @@ Red='\033[0;31m'
 Green='\033[0;32m'
 Yellow='\033[0;33m'
 
+SCRIPT_PATH="$( cd -- "$(dirname "$0")" || exit 1 >/dev/null 2>&1 ; pwd -P )"
+
 is_vim_install=0
 
 function is_arch() {
@@ -491,8 +493,7 @@ function symlink() {
 	ln -s "$(pwd)/$src" "$dst"
 }
 
-function setup_symlinks() {
-	# could also do a `cd $SCRIPT_PATH` here
+function setup_symlinks_vim() {
 	if [ ! -d vim ]
 	then
 		echo "Error: folder vim not found. wrong directoy?"
@@ -500,8 +501,14 @@ function setup_symlinks() {
 	fi
 	mkdir -p ~/.vim/syntax
 	mkdir -p ~/.vim/ftdetect
-	symlink "vim/syntax/ddnet-cfg.vim" ~/.vim/syntax/ddnet-cfg.vim
-	symlink "vim/ftdetect/ddnet-cfg.vim" ~/.vim/ftdetect/ddnet-cfg.vim
+	symlink ./vim/syntax/ddnet-cfg.vim ~/.vim/syntax/ddnet-cfg.vim
+	symlink ./vim/ftdetect/ddnet-cfg.vim ~/.vim/ftdetect/ddnet-cfg.vim
+}
+
+function setup_symlinks() {
+	cd "$SCRIPT_PATH" || exit 1
+	setup_symlinks_vim
+	symlink ./editorconfig ~/.editorconfig
 }
 
 if [ ! -d ~/.um ] && [ "$USER" == "chiller" ]
