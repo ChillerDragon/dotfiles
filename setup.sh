@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -euo pipefail
+
 Reset='\033[0m'
 Red='\033[0;31m'
 Green='\033[0;32m'
@@ -336,7 +338,7 @@ function install_pictures() {
         echo "[pictures] skipping for non 'chiller' users ..."
         return
     fi
-    if [ -n "$SSH_CLIENT" ]
+    if [ "${SSH_CLIENT:-}" != '' ]
     then
         echo "[pictures] skipping for remote sessions ..."
         return
@@ -523,7 +525,7 @@ function setup_bash_history() {
 	if ! grep -qF 'source ~/Desktop/git/bash_history/init.sh' ~/.bashrc
 	then
 		echo 'source ~/Desktop/git/bash_history/init.sh' >> ~/.bashrc
-		echo "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
+		echo -e "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
 	fi
 }
 
@@ -571,4 +573,6 @@ fi
 	cd dotfiles-private || exit 1
 	./setup.sh
 )
+
+echo -e "[dotfiles] finished ... ${Green}OK${Reset}"
 
