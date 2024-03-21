@@ -511,6 +511,22 @@ function setup_symlinks() {
 	symlink ./editorconfig ~/.editorconfig
 }
 
+function setup_bash_history() {
+	[ "$USER" = "chiller" ] || return
+
+	mkdir -p ~/Desktop/git
+	cd ~/Desktop/git || exit 1
+	if [ ! -d bash_history ]
+	then
+		git clone git@github.com:ChillerDragon/bash_history.git
+	fi
+	if ! grep -qF 'source ~/Desktop/git/bash_history/init.sh' ~/.bashrc
+	then
+		echo 'source ~/Desktop/git/bash_history/init.sh' >> ~/.bashrc
+		echo "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
+	fi
+}
+
 if [ ! -d ~/.um ] && [ "$USER" == "chiller" ]
 then
 	mkdir ~/.um
