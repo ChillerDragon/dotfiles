@@ -507,9 +507,19 @@ function setup_symlinks_vim() {
 	symlink ./vim/ftdetect/ddnet-cfg.vim ~/.vim/ftdetect/ddnet-cfg.vim
 }
 
+function setup_symlinks_vscode() {
+	if [ ! -d ~/.config/Code/User ]
+	then
+		return
+	fi
+	symlink ./vscode/settings.json ~/.config/Code/User/settings.json
+	symlink ./vscode/keybindings.json ~/.config/Code/User/keybindings.json
+}
+
 function setup_symlinks() {
 	cd "$SCRIPT_PATH" || exit 1
 	setup_symlinks_vim
+	setup_symlinks_vscode
 	symlink ./editorconfig ~/.editorconfig
 }
 
