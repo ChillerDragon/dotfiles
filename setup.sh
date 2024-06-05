@@ -121,6 +121,43 @@ function install_packages() {
 	done
 }
 
+function install_bash_language_server() {
+	if [ -d ~/Desktop/git/bash-language-server ]
+	then
+		return
+	fi
+	pushd ~/Desktop/git || exit 1
+
+	git clone https://github.com/ChillerDragon/bash-language-server
+	cd bash-language-server
+
+
+	if [ ! -x "$(command -v npm)" ]
+	then
+		echo -e "[neovim] missing dependency npm ${Red}ERROR${Reset}"
+		return
+	fi
+
+	if [ ! -x "$(command -v pnpm)" ]
+	then
+		npm i -g pnpm
+	fi
+	pnpm install
+	npm run reinstall-server
+
+	popd || exit 1 # ~/Desktop/git
+}
+
+function install_neovim() {
+	if [ ! -d ~/.config/nvim ]
+	then
+		mkdir -p ~/.config
+		git clone git@github.com:ChillerDragon/kickstart.nvim ~/.config/nvim
+	fi
+
+	install_bash_language_server
+}
+
 function install_vim() {
 	if [ -d ~/.vim/plugged/YouCompleteMe ] && [ -d ~/.vim/plugged/vim-gutentags ]
 	then
@@ -546,6 +583,7 @@ then
 fi
 
 install_vim
+install_neovim
 install_pictures
 
 setup_symlinks
