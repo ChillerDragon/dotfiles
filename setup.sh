@@ -140,7 +140,7 @@ function install_bash_language_server() {
 
 	if [ ! -x "$(command -v pnpm)" ]
 	then
-		npm i -g pnpm
+		npm i -g pnpm@8
 	fi
 	pnpm install
 	npm run reinstall-server
