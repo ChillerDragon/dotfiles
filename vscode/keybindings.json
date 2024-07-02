@@ -71,4 +71,14 @@
     },
     "when": "editorLangId == cpp"
   },
+  {
+    "key": "ctrl+k ctrl+v",
+    "command": "markdown.showPreview",
+    "when": "!notebookEditorFocused && editorLangId == 'markdown'"
+  },
+  {
+    "key": "ctrl+shift+v",
+    "command": "-markdown.showPreview",
+    "when": "!notebookEditorFocused && editorLangId == 'markdown'"
+  },
 ]
