@@ -122,6 +122,12 @@ function install_packages() {
 }
 
 function install_bash_language_server() {
+	if [ ! -d ~/Desktop/ ]
+	then
+		# assume this is some vps
+		# or other system that doesn not want a bash lsp
+		return
+	fi
 	if [ -d ~/Desktop/git/bash-language-server ]
 	then
 		return
