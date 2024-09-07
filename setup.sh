@@ -459,7 +459,7 @@ function update_gitconfig() {
 	elif [ "$git_alias_d" == "diff --word-diff --color-words" ]
 	then
 		# use this branch to update the alias in case we add new flags
-		test
+		true
 	else
 		echo "[gitconfig] warning not overwriting custom 'git d' alias!"
 	fi
