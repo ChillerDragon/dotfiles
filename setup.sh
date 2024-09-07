@@ -193,7 +193,7 @@ function install_vim() {
 			git build-essential \
 			cmake python3 python3-dev \
 			cscope shellcheck
-		luarocks install luacheck --user
+		luarocks install luacheck --user || true
 	fi
 	if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
 	then
