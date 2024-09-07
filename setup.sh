@@ -315,7 +315,7 @@ function update_teeworlds() {
 	cwd="$(pwd)"
 	if [ "$UID" == "0" ]
 	then
-		echo "[teeworlds] skpping on root user ..."
+		echo "[teeworlds] skipping on root user ..."
 		return
 	fi
 	if is_apple
