@@ -414,7 +414,7 @@ function print_gitignore() {
 
 function update_gitconfig() {
 	local global_gitignore
-	global_gitignore="$(git config --global core.excludesfile)"
+	global_gitignore="$(git config --global core.excludesfile || true)"
 	if [ "$global_gitignore" == "" ]
 	then
 		echo "[gitignore] set global cfg to ~/.gitignore"
@@ -428,7 +428,7 @@ function update_gitconfig() {
 		echo "[gitignore] WARNING not overwriting custom gitignore"
 	fi
 	local global_gitdiff
-	global_gitdiff="$(git config --global diff.wsErrorHighlight)"
+	global_gitdiff="$(git config --global diff.wsErrorHighlight || true)"
 	if [ "$global_gitdiff" == "" ]
 	then
 		echo "[gitdiff] set global diff.wsErrorHighlight to all (hilite tabs)"
@@ -451,7 +451,7 @@ function update_gitconfig() {
 		fi
 	fi
 	local git_alias_d
-	git_alias_d="$(git config --global alias.d)"
+	git_alias_d="$(git config --global alias.d || true)"
 	if [ "$git_alias_d" == "" ]
 	then
 		echo "[gitconfig] setting up alias 'git d' ..."
