@@ -18,5 +18,14 @@
 		"workbench.action.openEditorAtIndex7",
 		"workbench.action.openEditorAtIndex8",
 		"workbench.action.openEditorAtIndex9"
-	]
+	],
+	"workbench.startupEditor": "none",
+	"git.openRepositoryInParentFolders": "never",
+	"cmake.showOptionsMovedNotification": false,
+	"workbench.colorTheme": "Default Dark+",
+	"cmake.pinnedCommands": [
+		"workbench.action.tasks.configureTaskRunner",
+		"workbench.action.tasks.runTask"
+	],
+	"extensions.ignoreRecommendations": true
 }
