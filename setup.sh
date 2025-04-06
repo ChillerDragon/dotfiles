@@ -56,12 +56,10 @@ function git_save_pull() {
 }
 
 function install_tool() {
-    local tool
     local pckmn
-    tool="$*"
     if is_apple
     then
-        brew install "$tool"
+        brew install "$@"
     else
         if is_arch
         then
@@ -71,11 +69,11 @@ function install_tool() {
         fi
         if [ "$UID" == "0" ]
         then
-            eval "$pckmn $tool"
+            $pckmn "$@"
         else
             if [ -x "$(command -v sudo)" ]
             then
-                eval "sudo $pckmn $tool"
+                sudo $pckmn "$@"
             else
                 echo "[-] Error: install sudo"
                 exit 1
