@@ -179,7 +179,7 @@ function install_vim() {
 	then
 		install_tool \
 			figlet \
-			git \
+			wget git \
 			cmake \
 			ctags cscope shellcheck
 	else # debian
