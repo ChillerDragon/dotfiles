@@ -174,7 +174,7 @@ function install_vim() {
 			figlet \
 			git base-devel \
 			cmake python3 \
-			ctags cscope shellcheck
+			ctags cscope shellcheck screen ripgrep
 	elif is_apple
 	then
 		install_tool \
@@ -190,7 +190,7 @@ function install_vim() {
 			curl \
 			git build-essential \
 			cmake python3 python3-dev \
-			cscope shellcheck
+			cscope shellcheck screen ripgrep
 		luarocks install luacheck --user || true
 	fi
 	if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'
