@@ -1,4 +1,4 @@
-" version 0077
+" version 0078
 " put these lines in ~/.vimrc
 
 " Basics
@@ -390,7 +390,7 @@ call plug#begin('~/.vim/plugged')
 " For MS Windows, this is probably better:
 "call plug#begin('~/vimfiles/plugged')
 
-Plug 'ciaranm/detectindent'
+Plug 'tpope/vim-sleuth' " detects indent
 Plug 'vim-scripts/OmniCppComplete'
 Plug 'ludovicchabant/vim-gutentags'
 Plug 'ctrlpvim/ctrlp.vim'
