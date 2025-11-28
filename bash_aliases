@@ -1,5 +1,4 @@
-# version 0014
-alias x='ls && git status'
+# version 0015
 alias serve='echo "http://localhost:9090" && ruby -run -e httpd . -p 9090'
 alias start='xdg-open'
 alias mmh='zzh --mosh'
