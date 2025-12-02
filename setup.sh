@@ -57,6 +57,7 @@ function git_save_pull() {
 
 function install_tool() {
     local pckmn
+    echo "[*] installing tools $* .."
     if is_apple
     then
         brew install "$@"
@@ -73,6 +74,7 @@ function install_tool() {
         else
             if [ -x "$(command -v sudo)" ]
             then
+		# shellcheck disable=SC2086
                 sudo $pckmn "$@"
             else
                 echo "[-] Error: install sudo"
