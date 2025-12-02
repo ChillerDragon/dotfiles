@@ -56,32 +56,32 @@ function git_save_pull() {
 }
 
 function install_tool() {
-    local pckmn
-    echo "[*] installing tools $* .."
-    if is_apple
-    then
-        brew install "$@"
-    else
-        if is_arch
-        then
-            pckmn="pacman -Sy --noconfirm --needed"
-        else
-            pckmn="apt install -y"
-        fi
-        if [ "$UID" == "0" ]
-        then
-            $pckmn "$@"
-        else
-            if [ -x "$(command -v sudo)" ]
-            then
-		# shellcheck disable=SC2086
-                sudo $pckmn "$@"
-            else
-                echo "[-] Error: install sudo"
-                exit 1
-            fi
-        fi
-    fi
+	local pckmn
+	echo "[*] installing tools $* .."
+	if is_apple
+	then
+		brew install "$@"
+	else
+		if is_arch
+		then
+			pckmn="pacman -Sy --noconfirm --needed"
+		else
+			pckmn="apt install -y"
+		fi
+		if [ "$UID" == "0" ]
+		then
+			$pckmn "$@"
+		else
+			if [ -x "$(command -v sudo)" ]
+			then
+				# shellcheck disable=SC2086
+				sudo $pckmn "$@"
+			else
+				echo "[-] Error: install sudo"
+				exit 1
+			fi
+		fi
+	fi
 }
 
 function is_package_installed() {
