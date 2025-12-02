@@ -510,9 +510,9 @@ function update_gitconfig() {
 }
 
 github='git@github.com:'
-if [ ! -f ~/.ssh/id_rsa.pub ]
+if [ ! -f ~/.ssh/id_rsa.pub ] && [ ! -f ~/.ssh/id_ed25519.pub ]
 then
-    echo -e "[ssh] ${Yellow}WARNING${Reset}: no ~/.ssh/id_rsa.pub found using https for git"
+    echo -e "[ssh] ${Yellow}WARNING${Reset}: no ~/.ssh/id_rsa.pub or ~/.ssh/id_ed25519.pub found using https for git"
     github='https://github.com/'
 fi
 if [ ! -d ~/.ssh ]
