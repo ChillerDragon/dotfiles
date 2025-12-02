@@ -518,7 +518,12 @@ else
     then
         echo -e "[ssh_config] ${Yellow}WARNING${Reset}: ~/.ssh/work_rsa not found"
     fi
-    update_rc_file ssh_config ssh_config "$HOME/.ssh/config"
+    ssh_conf_path="$HOME/.ssh/config"
+    update_rc_file ssh_config ssh_config "$ssh_conf_path"
+
+    # TODO: only run this if needed and log if we did it
+    echo "[ssh_config] setting permissions for $ssh_conf_path .."
+    chmod 644 "$ssh_conf_path"
 fi
 
 function symlink() {
