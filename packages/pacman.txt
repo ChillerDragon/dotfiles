@@ -5,3 +5,4 @@ obs-studio
 openssh
 openbsd-netcat
 sqlite
+ctags

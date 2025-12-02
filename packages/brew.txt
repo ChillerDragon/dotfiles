@@ -1,0 +1,7 @@
+figlet
+wget
+git
+cmake
+ctags
+cscope
+shellcheck

@@ -195,29 +195,9 @@ function install_vim() {
 		return
 	fi
 	is_vim_install=1
-	if is_arch
+	if is_debian
 	then
-		install_tool \
-			figlet \
-			git base-devel \
-			cmake python3 \
-			ctags cscope shellcheck screen ripgrep
-	elif is_apple
-	then
-		install_tool \
-			figlet \
-			wget git \
-			cmake \
-			ctags cscope shellcheck
-	else # debian
-		install_tool universal-ctags
-		install_tool \
-			luarocks \
-			figlet \
-			curl \
-			git build-essential \
-			cmake python3 python3-dev \
-			cscope shellcheck screen ripgrep
+		# TODO: what about arch?
 		luarocks install luacheck --user || true
 	fi
 	if [ -x "$(command -v vim)" ] && vim --version | grep -q '+python'

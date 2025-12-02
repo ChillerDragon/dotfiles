@@ -1,4 +1,10 @@
 jq
+figlet
+curl
+luarocks
+shellcheck
+cscope
+ripgrep
 gdb
 screen
 tmux
