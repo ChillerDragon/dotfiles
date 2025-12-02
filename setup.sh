@@ -185,7 +185,7 @@ function install_vim() {
 			cmake \
 			ctags cscope shellcheck
 	else # debian
-		install_tool ctags || install_tool universal-ctags
+		install_tool universal-ctags
 		install_tool \
 			luarocks \
 			figlet \
