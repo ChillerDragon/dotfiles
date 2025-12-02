@@ -12,19 +12,27 @@ SCRIPT_PATH="$( cd -- "$(dirname "$0")" || exit 1 >/dev/null 2>&1 ; pwd -P )"
 is_vim_install=0
 
 function is_arch() {
-    if [ -f /etc/arch-release ] && uname -r | grep -q arch
-    then
-        return 0
-    fi
-    return 1
+	if [ -f /etc/arch-release ] && uname -r | grep -q arch
+	then
+		return 0
+	fi
+	return 1
+}
+
+function is_debian() {
+	if [ -f /etc/debian_version ] && uname -r | grep -q deb
+	then
+		return 0
+	fi
+	return 1
 }
 
 function is_apple() {
-    if [[ "$OSTYPE" == "darwin"* ]]
-    then
-        return 0
-    fi
-    return 1
+	if [[ "$OSTYPE" == "darwin"* ]]
+	then
+		return 0
+	fi
+	return 1
 }
 
 command -v sha1sum >/dev/null 2>&1 || {
@@ -92,6 +100,23 @@ function is_package_installed() {
 		then
 			return 0
 		fi
+	elif is_debian
+	then
+		local apt_list
+		local missing=0
+
+		# cache might contain removed packages
+		# but at least it is fast
+		apt_list="$(apt-cache search . | cut -d' ' -f1)"
+
+		# this breaks with set -o pipefail
+		set +o pipefail
+		if ! printf '%s\n' "$apt_list" | grep -qxF "$package"
+		then
+			missing=1
+		fi
+		set -o pipefail
+		[ "$missing" -eq 0 ] && return 0
 	fi
 	return 1
 }
