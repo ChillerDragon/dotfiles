@@ -596,6 +596,8 @@ function setup_bash_history() {
 	then
 		echo "source ~/$git_dir/bash_history/init.sh" >> ~/.bashrc
 		echo -e "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
+		source ~/"$git_dir"/bash_history/init.sh
+		echo -e "[bash_history] activating for current shell ... ${Green}OK${Reset}"
 	fi
 }
 
