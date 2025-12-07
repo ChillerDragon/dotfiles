@@ -579,15 +579,22 @@ function setup_symlinks() {
 function setup_bash_history() {
 	[ "$USER" = "chiller" ] || return
 
-	mkdir -p ~/Desktop/git
-	cd ~/Desktop/git || exit 1
+	local git_dir="Desktop/git"
+	if [ ! -d ~/Desktop/ ]
+	then
+		echo "[bash_history] assuming this is a vps .."
+		git_dir="git"
+	fi
+
+	mkdir -p ~/"$git_dir"
+	cd ~/"$git_dir" || exit 1
 	if [ ! -d bash_history ]
 	then
 		git clone git@github.com:ChillerDragon/bash_history.git
 	fi
-	if ! grep -qF 'source ~/Desktop/git/bash_history/init.sh' ~/.bashrc
+	if ! grep -qF "source ~/$git_dir/bash_history/init.sh" ~/.bashrc
 	then
-		echo 'source ~/Desktop/git/bash_history/init.sh' >> ~/.bashrc
+		echo "source ~/$git_dir/bash_history/init.sh" >> ~/.bashrc
 		echo -e "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
 	fi
 }
