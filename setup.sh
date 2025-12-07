@@ -610,6 +610,7 @@ install_neovim
 install_pictures
 
 setup_symlinks
+setup_bash_history
 
 update_rc_file vim vimrc "$HOME/.vimrc"
 update_rc_file irb irbrc "$HOME/.irbrc"
