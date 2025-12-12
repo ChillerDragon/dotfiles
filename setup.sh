@@ -215,65 +215,65 @@ function install_vim() {
 }
 
 function check_dotfile_version() {
-    local dotfile
-    local dotfile_path
-    local versionfile
-    local aVersions=()
-    local aSha1s=()
-    dotfile="$1"
-    dotfile_repo="$2"
-    dotfile_path="$3"
-    versionfile=dev/${dotfile}_versions.txt
+	local dotfile
+	local dotfile_path
+	local versionfile
+	local aVersions=()
+	local aSha1s=()
+	dotfile="$1"
+	dotfile_repo="$2"
+	dotfile_path="$3"
+	versionfile=dev/${dotfile}_versions.txt
 
-    if [ ! -f "$versionfile" ]
-    then
-        echo "Error: $versionfile not found"
-        exit
-    fi
+	if [ ! -f "$versionfile" ]
+	then
+		echo "Error: $versionfile not found"
+		exit
+	fi
 
-    while read -r line; do
-        if [ "${line:0:1}" == "#" ]
-        then
-            continue # ignore comments
-        elif [ -z "$line" ]
-        then
-            continue # ignore empty lines
-        fi
-        sha1=$(echo "$line" | cut -d " " -f1 );version=$(echo "$line" | cut -d " " -f2)
-        aVersions+=("$version");aSha1s+=("$sha1")
-        # echo "loading sha1=$sha1 version=$version ..."
-    done < "$versionfile"
+	while read -r line; do
+		if [ "${line:0:1}" == "#" ]
+		then
+			continue # ignore comments
+		elif [ -z "$line" ]
+		then
+			continue # ignore empty lines
+		fi
+		sha1=$(echo "$line" | cut -d " " -f1 );version=$(echo "$line" | cut -d " " -f2)
+		aVersions+=("$version");aSha1s+=("$sha1")
+		# echo "loading sha1=$sha1 version=$version ..."
+	done < "$versionfile"
 
 
-    hash_found=$(sha1sum "$dotfile_path" | cut -d " " -f1)
-    version_found=$(head -n 1 "$dotfile_path" | cut -d " " -f3)
-    version_latest="${aVersions[${#aVersions[@]}-1]}"
-    printf "[$dotfile] found %s version='%s' ... " "$dotfile" "$version_found"
-    # printf "sha1=$hash_found ... "
-    if [ "$version_found" == "$version_latest" ]
-    then
-        echo -e "already latest ${Green}OK${Reset}"
-        return
-    fi
-    for v in "${!aVersions[@]}"
-    do
-        if [ "$version_found" != "${aVersions[v]}" ]
-        then
-            continue
-        fi
-        # found version:
-        if [ "$hash_found" == "${aSha1s[v]}" ]
-        then
-            echo -e "outdated (old sha1) ${Yellow}OUTDATED${Reset}"
-            echo "[$dotfile] updating..."
-            cp "$dotfile_repo" "$dotfile_path"
-        else
-            echo -e "failed to update custom version ${Red}ERROR${Reset}"
-            echo "[$dotfile] sha1 missmatch '$hash_found' != '${aSha1s[v]}'"
-        fi
-        return
-    done
-    echo -e "unkown version ${Red}ERROR${Reset}"
+	hash_found=$(sha1sum "$dotfile_path" | cut -d " " -f1)
+	version_found=$(head -n 1 "$dotfile_path" | cut -d " " -f3)
+	version_latest="${aVersions[${#aVersions[@]}-1]}"
+	printf "[$dotfile] found %s version='%s' ... " "$dotfile" "$version_found"
+	# printf "sha1=$hash_found ... "
+	if [ "$version_found" == "$version_latest" ]
+	then
+		echo -e "already latest ${Green}OK${Reset}"
+		return
+	fi
+	for v in "${!aVersions[@]}"
+	do
+		if [ "$version_found" != "${aVersions[v]}" ]
+		then
+			continue
+		fi
+		# found version:
+		if [ "$hash_found" == "${aSha1s[v]}" ]
+		then
+			echo -e "outdated (old sha1) ${Yellow}OUTDATED${Reset}"
+			echo "[$dotfile] updating..."
+			cp "$dotfile_repo" "$dotfile_path"
+		else
+			echo -e "failed to update custom version ${Red}ERROR${Reset}"
+			echo "[$dotfile] sha1 missmatch '$hash_found' != '${aSha1s[v]}'"
+		fi
+		return
+	done
+	echo -e "unkown version ${Red}ERROR${Reset}"
 }
 
 function update_rc_file() {
