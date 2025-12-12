@@ -570,10 +570,11 @@ function setup_symlinks_vscode() {
 }
 
 function setup_symlinks() {
-	cd "$SCRIPT_PATH" || exit 1
+	pushd "$SCRIPT_PATH" >/dev/null || exit 1
 	setup_symlinks_vim
 	setup_symlinks_vscode
 	symlink ./editorconfig ~/.editorconfig
+	popd >/dev/null # SCRIPT_PATH
 }
 
 function setup_bash_history() {
@@ -587,22 +588,25 @@ function setup_bash_history() {
 	fi
 
 	mkdir -p ~/"$git_dir"
-	cd ~/"$git_dir" || exit 1
-	if [ ! -d bash_history ]
-	then
-		git clone git@github.com:ChillerDragon/bash_history.git
-	fi
-	if ! grep -qF "source ~/$git_dir/bash_history/init.sh" ~/.bashrc
-	then
-		echo "source ~/$git_dir/bash_history/init.sh" >> ~/.bashrc
-		echo -e "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
+	pushd ~/"$git_dir" >/dev/null || exit 1
+	{
+		if [ ! -d bash_history ]
+		then
+			git clone git@github.com:ChillerDragon/bash_history.git
+		fi
+		if ! grep -qF "source ~/$git_dir/bash_history/init.sh" ~/.bashrc
+		then
+			echo "source ~/$git_dir/bash_history/init.sh" >> ~/.bashrc
+			echo -e "[bash_history] adding hook to bashrc ... ${Green}OK${Reset}"
 
-		# # this throws the following error and doesnt activate it :shrug:
-		# # /home/chiller/git/bash_history/init.sh: line 98: bind: warning: line editing not enabled
-		#
-		# source ~/"$git_dir"/bash_history/init.sh
-		# echo -e "[bash_history] activating for current shell ... ${Green}OK${Reset}"
-	fi
+			# # this throws the following error and doesnt activate it :shrug:
+			# # /home/chiller/git/bash_history/init.sh: line 98: bind: warning: line editing not enabled
+			#
+			# source ~/"$git_dir"/bash_history/init.sh
+			# echo -e "[bash_history] activating for current shell ... ${Green}OK${Reset}"
+		fi
+	}
+	popd >/dev/null # git_dir
 }
 
 if [ ! -d ~/.um ] && [ "$USER" == "chiller" ]
