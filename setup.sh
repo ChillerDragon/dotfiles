@@ -593,6 +593,10 @@ function setup_bash_history() {
 		if [ ! -d bash_history ]
 		then
 			git clone git@github.com:ChillerDragon/bash_history.git
+		else
+			pushd bash_history >/dev/null
+			git_save_pull bash_history
+			popd >/dev/null # bash_history
 		fi
 		if ! grep -qF "source ~/$git_dir/bash_history/init.sh" ~/.bashrc
 		then
