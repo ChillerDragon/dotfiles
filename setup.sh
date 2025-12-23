@@ -366,16 +366,20 @@ function update_teeworlds() {
 	fi
 	mkdir -p chillerbot
 	cd chillerbot || exit 1
-	if [ ! -d cbs ]
+
+	if [ "$github" != 'https://github.com/' ]
 	then
-		git clone "${github}chillerbot/chillerbot-scripts" cbs
-	elif [ ! -d cbs/.git ] && [ "$(ls cbs)" == "" ]
-	then
-		rm -rf cbs
-		git clone "${github}chillerbot/chillerbot-scripts" cbs
-	else
-		cd cbs || exit 1
-		git_save_pull cbs
+		if [ ! -d cbs ]
+		then
+			git clone "${github}chillerbot/chillerbot-scripts" cbs
+		elif [ ! -d cbs/.git ] && [ "$(ls cbs)" == "" ]
+		then
+			rm -rf cbs
+			git clone "${github}chillerbot/chillerbot-scripts" cbs
+		else
+			cd cbs || exit 1
+			git_save_pull cbs
+		fi
 	fi
 	cd "$cwd" || exit 1
 }
@@ -384,22 +388,22 @@ function install_pictures() {
     if [ "$USER" != "chiller" ]
     then
         echo "[pictures] skipping for non 'chiller' users ..."
-        return
+        return 0
     fi
     if [ "${SSH_CLIENT:-}" != '' ]
     then
         echo "[pictures] skipping for remote sessions ..."
-        return
+        return 0
     fi
     if [ "$UID" == "0" ]
     then
         echo "[pictures] skpping on root user ..."
-        return
+        return 0
     fi
     mkdir -p ~/Pictures
     if [ "$(ls -A ~/Pictures)" ]
     then
-        return
+        return 0
     fi
     echo "[pictures] downloading ~/Pictures ..."
     rm -r ~/Pictures
@@ -578,7 +582,7 @@ function setup_symlinks() {
 }
 
 function setup_bash_history() {
-	[ "$USER" = "chiller" ] || return
+	[ "$USER" = "chiller" ] || return 0
 
 	local git_dir="Desktop/git"
 	if [ ! -d ~/Desktop/ ]
@@ -655,7 +659,13 @@ fi
 
 (
 	cd .. || exit 1
-	[[ ! -d dotfiles-private ]] && git clone git@github.com:ChillerDragon/dotfiles-private.git
+	if [[ ! -d dotfiles-private ]]
+	then
+		if ! git clone git@github.com:ChillerDragon/dotfiles-private.git
+		then
+			git clone git@github-GAMING:ChillerDragon/dotfiles-private.git
+		fi
+	fi
 	cd dotfiles-private || exit 1
 	./setup.sh
 )
